@@ -6,7 +6,6 @@ import kayttoliittyma.Kayttoliittyma;
 import kayttoliittyma.Piirtoalusta;
 import pelilauta.Laatta;
 import pelilauta.Lauta;
-import pelilogiikka.Puzzle;
 
 /**
  *
@@ -19,12 +18,12 @@ public class Main {
      */
     public static void main(String[] args) {
         Laatta laatta = new Laatta(1, 50, 50);
-        Lauta lauta = new Lauta(4);
+        Lauta lauta = new Lauta(5);
         lauta.lisaaLaatatJarjestykseen();
-        lauta.siirraOikealle(2, 3);
+        System.out.println(lauta.onkoJarjestyksessa());
         
-        Puzzle puzzle = new Puzzle(lauta);
-        Piirtoalusta p = new Piirtoalusta(puzzle);
+        
+        Piirtoalusta p = new Piirtoalusta(lauta);
         Kayttoliittyma k = new Kayttoliittyma(p);
         k.run();
     }

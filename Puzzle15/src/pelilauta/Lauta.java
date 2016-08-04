@@ -103,8 +103,65 @@ public class Lauta {
             lauta[y][x] = null;
             nullSpace.decx();
         }else{
-            System.out.println("Siirto on laiton!");
+            System.out.println("Siirto paikalta (" + x + ", " + y + ") oikealle on laiton!");
         }
+    }
+    public void siirraVasemmalle(int x, int y){
+        if(nullSpace.x() == x - 1 && nullSpace.y() == y){
+            lauta[y][x].siirraVasemmalle(); //Koordinaatit täällä väärinpäin
+            lauta[y][x-1] = lauta[y][x];  //jotta ne voisivat olla oikeinpäin muualla
+            lauta[y][x] = null;
+            nullSpace.incx();
+        }else{
+            System.out.println("Siirto paikalta (" + x + ", " + y + ") vasemmalle on laiton!");
+        }
+    }
+    public void siirraAlas(int x, int y){
+        if(nullSpace.x() == x && nullSpace.y() == y + 1){
+            lauta[y][x].siirraAlas();//Koordinaatit täällä väärinpäin
+            lauta[y+1][x] = lauta[y][x];  //jotta ne voisivat olla oikeinpäin muualla
+            lauta[y][x] = null;
+            nullSpace.decy();
+        }else{
+            System.out.println("Siirto paikalta (" + x + ", " + y + ") alas on laiton!");
+        }
+    }
+    public void siirraYlos(int x, int y){
+        if(nullSpace.x() == x && nullSpace.y() == y - 1){
+            lauta[y][x].siirraYlos();//Koordinaatit täällä väärinpäin
+            lauta[y-1][x] = lauta[y][x];  //jotta ne voisivat olla oikeinpäin muualla
+            lauta[y][x] = null;
+            nullSpace.incy();
+        }else{
+            System.out.println("Siirto paikalta (" + x + ", " + y + ") ylös on laiton!");
+        }
+    }
+    
+    public Laatta[] getLaatatYhtenaListana() { //Kokeillaanpa jos tämä shaiba toimii
+        int i = 0;
+        Laatta[] laatat = new Laatta[this.getLaattoja()];
+
+        for (Laatta[] laattaLista : this.getLauta()) {
+            for (Laatta l : laattaLista) {
+                if (l != null) {
+                    laatat[i] = l;
+                    i++;
+                }
+            }
+        }
+        return laatat;
+    }
+    
+    public boolean onkoJarjestyksessa(){
+        Laatta[] kaikkiLaatat = this.getLaatatYhtenaListana();
+        int current = kaikkiLaatat[0].getArvo();
+        int next;
+        for(int i = 1; i < kaikkiLaatat.length; i++){
+            next = kaikkiLaatat[i].getArvo();
+            if(next != current + 1) return false;
+            current = kaikkiLaatat[i].getArvo();
+        }
+        return true;
     }
     
 

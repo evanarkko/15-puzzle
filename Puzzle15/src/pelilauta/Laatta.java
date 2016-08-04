@@ -39,7 +39,6 @@ public class Laatta {
     }
     
     
-    
     public void luo(Graphics g){ 
         g.setColor(Color.red);
         g.fillRoundRect(trueKoordinaatit.x(), trueKoordinaatit.y(), koko, koko, 20, 20);
