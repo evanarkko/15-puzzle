@@ -10,3 +10,19 @@ Olennaisia etenemiskohtia tähän mennessä ovat taulukon generointi,
 satunnaisen laattajärjestyksen generointi sekä laattojen siirtämislogiikka.
 Olen käyttänyt ArrayListiä kerran apuna, mutta implementoin sen myöhemmin
 itse. En ole aloittanut vielä ratkaisualgoritmin kirjoittamista.
+
+
+Viiko 2:
+Koodia on tällä viikolla tullut hyvin vähän. Tein viime viikolla niin runsaasti, että ajattelin
+ottaa nyt iisimmin. Olen pelannut itseni eteväksi 15-pelissä ja alkanut suunnittelemaan, miten ratkaisun
+voisi artikuloida koodiksi.
+
+Olennaisimmat etenemioskohdat ovat varmaan laudan oikean järjestyksen tarkistus (O(n)) sekä 
+koordinaattien hallinassa auttava apuolio.
+
+Siirrot ovat tähän mennessä hyvin köykäisiä. Siirtoanimaatiota ei ole. Tein koordinaattien muuntaja -olion,
+joka palauttaa syötteen perusteella joko laatan todelliset koordinaatit tai pelikoordinaatit.
+Tätä käytän apuna animaation tekemisessä. Opiskelin myös Java MouseListener apia, mutta en implementoinut
+vielä mitään. Nämä seikat ovat vain pelaajaa varten. Käytännössä olen valmis aloittamaan
+itse ratkaisualgoritmin teon.
+
