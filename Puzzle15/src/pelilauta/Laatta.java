@@ -10,11 +10,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 /**
- *
+ * Luokka, joka hallinnoi laattoja
  * @author eamiller
  */
 public class Laatta {
-    private int arvo;
+    private final int arvo;
     private Koordinaatit pelikoordinaatit;
     private Koordinaatit trueKoordinaatit;
     private int koko;
@@ -38,7 +38,10 @@ public class Laatta {
         this.trueKoordinaatit = new Koordinaatit(x, y);
     }
     
-    
+    /**
+     * piirtää laatan Swing-metodeilla
+     * @param g Grafiikkaolio
+     */
     public void luo(Graphics g){ 
         g.setColor(Color.red);
         g.fillRoundRect(trueKoordinaatit.x(), trueKoordinaatit.y(), koko, koko, 20, 20);
@@ -57,22 +60,39 @@ public class Laatta {
                 + ", " + pelikoordinaatit.y() + ")"; //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    /**
+     * Siirtää laatta-oliota oikealle sekä piirtoalustalla, että peliludalla
+     */
     public void siirraOikealle(){
         this.pelikoordinaatit.incx();
         this.trueKoordinaatit.incx(koko);
     }
+    /**
+     * Siirtää laatta-oliota vasemmalle sekä piirtoalustalla, että peliludalla
+     */
     public void siirraVasemmalle(){
         this.pelikoordinaatit.decx();
         this.trueKoordinaatit.decx(koko);
     }
+    /**
+     * Siirtää laatta-oliota alas sekä piirtoalustalla, että peliludalla
+     */
     public void siirraAlas(){
         this.pelikoordinaatit.incy();
         this.trueKoordinaatit.incy(koko);
     }
+    /**
+     * Siirtää laatta-oliota ylös sekä piirtoalustalla, että peliludalla
+     */
     public void siirraYlos(){
         this.pelikoordinaatit.decy();
         this.trueKoordinaatit.decy(koko);
     }
+
+    public Koordinaatit getPelikoordinaatit() {
+        return pelikoordinaatit;
+    }
+    
+    
     
 }

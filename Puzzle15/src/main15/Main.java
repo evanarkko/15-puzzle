@@ -18,8 +18,9 @@ public class Main {
      */
     public static void main(String[] args) {
         Laatta laatta = new Laatta(1, 50, 50);
-        Lauta lauta = new Lauta(5);
-        lauta.lisaaLaatatJarjestykseen();
+        Lauta lauta = new Lauta(4);
+        lauta.lisaaLaatat();
+        lauta.siirraAlas(0, 0);
         System.out.println(lauta.onkoJarjestyksessa());
         
         

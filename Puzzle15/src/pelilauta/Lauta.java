@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
- *
+ * Pääpeliluokka. Hallinnoi laatat, laudan täytön ja muutokset pelissä.
  * @author eamiller
  */
 public class Lauta {
@@ -27,7 +27,10 @@ public class Lauta {
         koko = 60;
         nullSpace = new Koordinaatit(size - 1, size - 1);
     }
-
+    
+    /**
+     * Luo ja lisää laatat laudalle satunnaiseen arvojärjestykseen.
+     */
     public void lisaaLaatat() {
         int aloitusx = marg;
         int aloitusy = marg;
@@ -60,6 +63,10 @@ public class Lauta {
         return lauta;
     }
     
+    /**
+     * Piirtää this.koko*this.koko -kokosien ruudukon.
+     * @param g Grafiikkaolio
+     */
     public void luo(Graphics g){
         g.setColor(Color.black);
         for(int i = 0; i < lauta.length + 1; i++){
@@ -74,6 +81,9 @@ public class Lauta {
         return laattoja;
     }
     
+    /**
+     * Luo ja lisää laatat laudalle arvojärjestykseen. 
+     */
     public void lisaaLaatatJarjestykseen() {
         int aloitusx = marg;
         int aloitusy = marg;
@@ -95,7 +105,12 @@ public class Lauta {
         }
     }
     
-    
+    /**
+     * Siirtää laattaa lauta-ruudukossa. Mahdollisesti turhia metodeja, mutta
+     * nyt tehdään pitkän kaavan kautta.
+     * @param x
+     * @param y 
+     */
     public void siirraOikealle(int x, int y){
         if(nullSpace.x() == x + 1 && nullSpace.y() == y){
             lauta[y][x].siirraOikealle(); //Koordinaatit täällä väärinpäin
@@ -106,6 +121,13 @@ public class Lauta {
             System.out.println("Siirto paikalta (" + x + ", " + y + ") oikealle on laiton!");
         }
     }
+    
+    /**
+     * Siirtää laattaa lauta-ruudukossa. Mahdollisesti turhia metodeja, mutta
+     * nyt tehdään pitkän kaavan kautta.
+     * @param x
+     * @param y 
+     */
     public void siirraVasemmalle(int x, int y){
         if(nullSpace.x() == x - 1 && nullSpace.y() == y){
             lauta[y][x].siirraVasemmalle(); //Koordinaatit täällä väärinpäin
@@ -116,6 +138,13 @@ public class Lauta {
             System.out.println("Siirto paikalta (" + x + ", " + y + ") vasemmalle on laiton!");
         }
     }
+    
+    /**
+     * Siirtää laattaa lauta-ruudukossa. Mahdollisesti turhia metodeja, mutta
+     * nyt tehdään pitkän kaavan kautta.
+     * @param x
+     * @param y 
+     */
     public void siirraAlas(int x, int y){
         if(nullSpace.x() == x && nullSpace.y() == y + 1){
             lauta[y][x].siirraAlas();//Koordinaatit täällä väärinpäin
@@ -126,6 +155,13 @@ public class Lauta {
             System.out.println("Siirto paikalta (" + x + ", " + y + ") alas on laiton!");
         }
     }
+    
+    /**
+     * Siirtää laattaa lauta-ruudukossa. Mahdollisesti turhia metodeja, mutta
+     * nyt tehdään pitkän kaavan kautta.
+     * @param x
+     * @param y 
+     */
     public void siirraYlos(int x, int y){
         if(nullSpace.x() == x && nullSpace.y() == y - 1){
             lauta[y][x].siirraYlos();//Koordinaatit täällä väärinpäin
@@ -137,6 +173,11 @@ public class Lauta {
         }
     }
     
+    /**
+     * Palauttaa laatta-ruudukon jäsenent yksiuloitteisena listana.
+     * Iso apu järjestyksen tarkistamisessa.
+     * @return Laatta[]
+     */
     public Laatta[] getLaatatYhtenaListana() { //Kokeillaanpa jos tämä shaiba toimii
         int i = 0;
         Laatta[] laatat = new Laatta[this.getLaattoja()];
@@ -152,6 +193,10 @@ public class Lauta {
         return laatat;
     }
     
+    /**
+     * Tarkistaa laattojen järjestyksen oikeellisuuden.
+     * @return true tai false, riippuen ovatko laatat nousevassa järjestyksessä.
+     */
     public boolean onkoJarjestyksessa(){
         Laatta[] kaikkiLaatat = this.getLaatatYhtenaListana();
         int current = kaikkiLaatat[0].getArvo();

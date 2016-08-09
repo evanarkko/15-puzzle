@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
 import javax.swing.*;
 
 /**
- *
+ * run()-metodin toteuttama käyttöliittymä pelaajaa varten
  * @author eamiller
  */
 public class Kayttoliittyma implements Runnable{

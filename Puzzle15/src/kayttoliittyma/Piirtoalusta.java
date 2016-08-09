@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import pelilauta.*;
 
 /**
- *
+ * Jpanel luokan perivä komponentti käyttölittymälle.
  * @author eamiller
  */
 public class Piirtoalusta extends JPanel{
