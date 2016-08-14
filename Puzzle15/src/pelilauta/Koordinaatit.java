@@ -82,6 +82,17 @@ public class Koordinaatit {
     public void decy(int maara){
         y-=maara;
     }
+
+    /**
+     * equals-metodi
+     * @param k verrattavat koordinaait
+     * @return palauttaa true jos samat koordinaatit, muuten false
+     */
+    public boolean equals(Koordinaatit k) {
+        return this.x()==k.x() && this.y()==k.y(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 
     @Override

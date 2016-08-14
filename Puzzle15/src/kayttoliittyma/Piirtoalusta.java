@@ -18,6 +18,7 @@ public class Piirtoalusta extends JPanel{
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         lauta.luo(g);
         for(Laatta l : lauta.getLaatatYhtenaListana()){
             l.luo(g);

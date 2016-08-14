@@ -41,7 +41,7 @@ public class Lauta {
                 if (apuLaskuri < laattoja) {
                     int arvo = arvoArray.remove((int) (Math.random()*arvoArray.size()));
                     
-                    Laatta uusiLaatta = new Laatta(arvo, 0, 0);
+                    Laatta uusiLaatta = new Laatta(arvo, a, i);
                     uusiLaatta.setTrueKoordinaatit(aloitusx, aloitusy);
                     lauta[i][a] = uusiLaatta;
                     apuLaskuri++;
@@ -93,7 +93,7 @@ public class Lauta {
             for (int a = 0; a < lauta[0].length; a++) {
                 if (apuLaskuri < laattoja) {
                     
-                    Laatta uusiLaatta = new Laatta((lauta.length*i) + a + 1, 0, 0);
+                    Laatta uusiLaatta = new Laatta((lauta.length*i) + a + 1, a, i);
                     uusiLaatta.setTrueKoordinaatit(aloitusx, aloitusy);
                     lauta[i][a] = uusiLaatta;
                     apuLaskuri++;
@@ -175,8 +175,8 @@ public class Lauta {
     
     /**
      * Palauttaa laatta-ruudukon jäsenent yksiuloitteisena listana.
-     * Iso apu järjestyksen tarkistamisessa.
-     * @return Laatta[]
+     * ISO apu järjestyksen tarkistamisessa.
+     * @return Laatta[] lista kaikista laatoista tämänhetkisessä järjestyksessä.
      */
     public Laatta[] getLaatatYhtenaListana() { //Kokeillaanpa jos tämä shaiba toimii
         int i = 0;
@@ -209,5 +209,59 @@ public class Lauta {
         return true;
     }
     
+    /**
+     * Tarkistaa laatttojen järjestyksen halutula rivillä
+     * @param riviNro indeksi alkaa nollasta (0 vastaa ekaa riviä)
+     * @return 
+     */
+    public boolean onkoRiviJarjestyksessa(int riviNro){
+//        if(riviNro > lauta.length)System.out.println("liian suuri rivinro");
+        Laatta[] rivi = lauta[riviNro];
+        if(riviNro == lauta.length-1){//Erikoistapaus jos tarkistetaan viimeistä riviä
+            //Ehkä erillinen metodi tätä varten???
+        }
+        
+        for(Laatta l : rivi){
+            if(l == null) return false;
+        }
+        
+        int current = rivi[0].getArvo();
+        int next;
+        for(int i = 1; i < rivi.length; i++){
+            next = rivi[i].getArvo();
+            if(next != current + 1) return false;
+            current = rivi[i].getArvo();
+        }
+        return true;
+    }
+    
+    /**
+     * palauttaa tyhjän paikan koordinaatit
+     * @return 
+     */
+    public Koordinaatit getNullSpace() {
+        return nullSpace;
+    }
+    
+    /**
+     * Palauttaa pelilaudan koordinaatit halutulle laatalle. 
+     * @param arvo kyseessä olevan laatan arvo
+     * @return 
+     */
+    public Koordinaatit haeLaatanKoordinaatit(int arvo){
+        if(arvo > laattoja){
+            System.out.println("haettavan laatan arvo liian iso!");
+            return null;
+        }
+        Laatta etsittavaLaatta = null;
+        Laatta[] kaikkiLaatat = this.getLaatatYhtenaListana();
+        for(Laatta l : kaikkiLaatat){
+            if(l.getArvo() == arvo){
+                etsittavaLaatta = l;
+                break;
+            }
+        }
+        return etsittavaLaatta.getPelikoordinaatit();
+    }
 
 }

@@ -67,6 +67,7 @@ public class Laatta {
         this.pelikoordinaatit.incx();
         this.trueKoordinaatit.incx(koko);
     }
+    
     /**
      * Siirtää laatta-oliota vasemmalle sekä piirtoalustalla, että peliludalla
      */
@@ -74,6 +75,7 @@ public class Laatta {
         this.pelikoordinaatit.decx();
         this.trueKoordinaatit.decx(koko);
     }
+    
     /**
      * Siirtää laatta-oliota alas sekä piirtoalustalla, että peliludalla
      */
@@ -81,6 +83,7 @@ public class Laatta {
         this.pelikoordinaatit.incy();
         this.trueKoordinaatit.incy(koko);
     }
+    
     /**
      * Siirtää laatta-oliota ylös sekä piirtoalustalla, että peliludalla
      */
@@ -92,7 +95,4 @@ public class Laatta {
     public Koordinaatit getPelikoordinaatit() {
         return pelikoordinaatit;
     }
-    
-    
-    
 }
