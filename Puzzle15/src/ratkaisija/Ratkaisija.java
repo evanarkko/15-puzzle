@@ -10,8 +10,9 @@ import ratkaisija.*;
  * @author eamiller
  */
 public class Ratkaisija {
-    private Lauta lauta;
-//    private ArrayList<Koordinaatit> alaSiirra; AVUKSI JOTTA PAKKA EI SEKOITU (?)
+    private final Lauta lauta;
+//    private ArrayList<Koordinaatit> alaKoske; AVUKSI JOTTA PAKKA EI SEKOITU (?)
+//    private Suunta nullinKiertoSuunta; SUUNTA, JOTA PITKIN NULLSPACE KIERTÄÄ LAATTAA (TODNÄK. VAIHTELEE)
 
     public Ratkaisija(Lauta lauta) {
         this.lauta = lauta;
@@ -26,45 +27,47 @@ public class Ratkaisija {
         }
     }
     
-    
+    /**
+     * Siirtää yhtä laattaa ekan rivin ratkaisemiseksi. Ehkä turha.
+     */
     public void seuraavaSiirtoEkaRivi() {
         
     }
     
     /**
      * Tekee siirron tietyn laatan saamiseksi
-     * lähemmäs haluttua kohdetta.
+     * lähemmäs haluttua kohdetta (jos tarve).
      * @param k1 siirrettävän laatan koordinaatit
      * @param k2 kohteen koordinaatit
      * @return palauttaa true jos laatta on jo kohdepaikassa, muulloin false.
+     * return statementit pitävät huolen siitä, että metodi ei suorita useata asiaa kerrallaan.
      */
     public boolean siirraKohtiPaikkaa(Koordinaatit k1, Koordinaatit k2){
-        if(k1.x()!=k2.x()){
-            siirraLeveysSuunnassa(k1, k2.x());
+        if(k1.x()<k2.x()){
+            yritaSiirtaaLaattaa(k1, Suunta.OIKEA);
             return false;
         }
-        if(k1.y()!=k2.y()){
-            siirraPystySuunnassa(k1, k2.y());
+        if(k1.x()>k2.x()){
+            yritaSiirtaaLaattaa(k1, Suunta.VASEN);
+            return false;
+        }
+        if(k1.y()<k2.y()){
+            yritaSiirtaaLaattaa(k1, Suunta.ALAS);
+            return false;
+        }
+        if(k1.y()>k2.y()){
+            yritaSiirtaaLaattaa(k1, Suunta.YLOS);
             return false;
         }
         return true;
     }
     
-    
-    public void siirraLeveysSuunnassa(Koordinaatit k1, int x2) {
-        if (k1.x() < x2){
-            yritaSiirtaaLaattaa(k1, Suunta.OIKEA);
-        }
-        if (k1.x() > x2){
-            yritaSiirtaaLaattaa(k1, Suunta.VASEN);
-        }
-    }
-
-    public void siirraPystySuunnassa(Koordinaatit k1, int y2) {
-        if (k1.y() < y2);//mennään alas
-        if (k1.y() > y2);//mennään ylös
-    }
-    
+    /**
+     * Yrittää siirtää laattaa annettuun suuntaan. Jos kyseinen paikka
+     * ei ole tyhjä, siirretään nullSpacea (tyhjää tilaa) haluttuun paikkaan päin.
+     * @param k Siirrettävän laatan koordinaatit
+     * @param s Siirtosuunta
+     */
     private void yritaSiirtaaLaattaa(Koordinaatit k, Suunta s){
         switch(s){
             case VASEN:
@@ -106,46 +109,55 @@ public class Ratkaisija {
      */
     public void siirraNullSpacea(Koordinaatit vaistettava, Suunta s){
         Koordinaatit haluttuPaikka = maaritaPaikka(vaistettava, s); //Määritetään nullspacen haluttu paikka
+        int nullx = lauta.getNullSpace().x();
+        int nully = lauta.getNullSpace().y();
         
-        if(lauta.getNullSpace().x()<haluttuPaikka.x()){
+        //TÄSSÄ PRIORISOIDAAN X-SUUNTAAN LIIKKUMISTA, MUTTA KANNATTAAKO TÄMÄ AINA?
+        if(nullx<haluttuPaikka.x()){
+            siirraNullSpacea(Suunta.OIKEA);
+        }else if(nullx>haluttuPaikka.x()){
             siirraNullSpacea(Suunta.VASEN);
-        }else if(lauta.getNullSpace().x()>haluttuPaikka.x()){
-            siirraNullSpacea(Suunta.VASEN);
-        }else if(lauta.getNullSpace().y()< haluttuPaikka.y()){
+        }else if(nully< haluttuPaikka.y()){
             siirraNullSpacea(Suunta.ALAS);
-        }else if(lauta.getNullSpace().y()>haluttuPaikka.y()){
+        }else if(nully>haluttuPaikka.y()){
             siirraNullSpacea(Suunta.YLOS);
         }
     }
     
     /**
-     * Siirtää nullspacea haluttuun suuntaan.
+     * Siirtää nullspacea haluttuun suuntaan yhden paikan.
      * @param s haluttu suunta
      */
     public void siirraNullSpacea(Suunta s) {
-        int x = lauta.getNullSpace().x();
-        int y = lauta.getNullSpace().y();
+        int nullx = lauta.getNullSpace().x();
+        int nully = lauta.getNullSpace().y();
         try {
             switch (s) {
                 case OIKEA:
-                    lauta.siirraVasemmalle(x + 1, y);
+                    lauta.siirraVasemmalle(nullx + 1, nully);
                     break;
                 case VASEN:
-                    lauta.siirraOikealle(x - 1, y);
+                    lauta.siirraOikealle(nullx - 1, nully);
                     break;
                 case YLOS:
-                    lauta.siirraAlas(x, y - 1);
+                    lauta.siirraAlas(nullx, nully - 1);
                     break;
                 case ALAS:
-                    lauta.siirraYlos(x, y + 1);
+                    lauta.siirraYlos(nullx, nully + 1);
                     break;
             }
         } catch (Exception e) {
             System.out.println("Nullpointer nullSpacea siirtäessä");
         }
-
     }
     
+    /**
+     * Määrittää koordinaatin, on annetun koordinaatin vieressä annetussa suunnassa.
+     * Käytetään nullSpacen siirtämisen apuna. Yksinkertainen, mutta rumannäköinen.
+     * @param minkaVieressa Annettu koordinaatti (oletettavasti nullSpace)
+     * @param s Annettu suunta
+     * @return vieressä oleva koordinaatti
+     */
     private Koordinaatit maaritaPaikka(Koordinaatit minkaVieressa, Suunta s){
         Koordinaatit maarita = null;//nullspacen haluttu paikka
         if(null!=s)switch (s) {

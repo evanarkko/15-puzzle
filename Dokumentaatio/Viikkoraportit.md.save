@@ -27,15 +27,4 @@ vielä mitään. Nämä seikat ovat vain pelaajaa varten. Käytännössä olen v
 itse ratkaisualgoritmin teon.
 
 Viikko 3:
-Paljon koodia sekä ideoita. Olen pelaillut 15-peliä paljon ja ratkaisun artikulointi koodiksi valkenee
-pikkuhiljaa. Tajusin esim. että siirtoja on kahdenlaisia: olennaista laattaa siirtävä, sekä tyhjää tilaa
-siirtävä. Aijon lähestyä ratkaisua rivi kerrallaan (rivien 1-3 ratkaisut ovat täysin/lähes identtiset).
 
-Tärkein lisä projektiin on Ratkaisija-luokka, joka sisältää pelin ratkaisevan tekoälyn. Ratkaisu tulee 
-koostumaan lukuisista metodeista, jotka kutsuvat systemaattisesti toisiaan. Ratkaisija-luokassa on
-reilu 100 riviä koodia, mutta arvioin, että siihen tulee tähän vielä moninkertainen määrä.
-
-Ohjelmoin myös animaatiota hallinnoivan peliloopin, joka kutsuu piirtoalustan repant-metodia. Pelilooppi
-sijaitsee uudessa Peli-luokassa. Siirrot ovat edelleen köykäisiä (Laatta katoaa ja ilmestyy viereen).
-Aloitin paremman animaation näpertelyn. Lopetin kuitenkin nopeasti, sillä toistaiseksi
-tärkeintä on saada itse ratkaisualgo valmiiksi.

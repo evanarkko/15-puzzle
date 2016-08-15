@@ -211,7 +211,7 @@ public class Lauta {
     
     /**
      * Tarkistaa laatttojen järjestyksen halutula rivillä
-     * @param riviNro indeksi alkaa nollasta (0 vastaa ekaa riviä)
+     * @param riviNro rivin indeksi alkaa nollasta (0 vastaa ekaa riviä)
      * @return 
      */
     public boolean onkoRiviJarjestyksessa(int riviNro){
