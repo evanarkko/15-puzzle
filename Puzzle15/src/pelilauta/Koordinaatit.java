@@ -82,19 +82,22 @@ public class Koordinaatit {
     public void decy(int maara){
         y-=maara;
     }
+    
+    public boolean onkoVieressa(Koordinaatit k){
+        if(this.equals(new Koordinaatit(k.x()-1, k.y()))) return true;
+        if(this.equals(new Koordinaatit(k.x()+1, k.y()))) return true;
+        if(this.equals(new Koordinaatit(k.x(), k.y()-1))) return true;
+        if(this.equals(new Koordinaatit(k.x(), k.y()+1))) return true;
+        return false;
+    }
 
-    /**
-     * equals-metodi
-     * @param k verrattavat koordinaait
-     * @return palauttaa true jos samat koordinaatit, muuten false
-     */
-    public boolean equals(Koordinaatit k) {
-        return this.x()==k.x() && this.y()==k.y(); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public boolean equals(Object obj) {
+        Koordinaatit k = (Koordinaatit) obj;
+        return this.x()==k.x() && this.y()==k.y();
     }
     
     
-    
-
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";

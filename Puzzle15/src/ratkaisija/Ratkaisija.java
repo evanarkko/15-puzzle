@@ -1,5 +1,6 @@
 package ratkaisija;
 
+import com.sun.org.apache.bcel.internal.generic.IFEQ;
 import java.util.ArrayList;
 import pelilauta.*;
 import ratkaisija.*;
@@ -12,10 +13,11 @@ import ratkaisija.*;
 public class Ratkaisija {
     private final Lauta lauta;
 //    private ArrayList<Koordinaatit> alaKoske; AVUKSI JOTTA PAKKA EI SEKOITU (?)
-//    private Suunta nullinKiertoSuunta; SUUNTA, JOTA PITKIN NULLSPACE KIERTÄÄ LAATTAA (TODNÄK. VAIHTELEE)
+    private Suunta nullinKiertoSuunta;// SUUNTA, JOTA PITKIN NULLSPACE KIERTÄÄ LAATTAA (TODNÄK. VAIHTELEE)
 
     public Ratkaisija(Lauta lauta) {
         this.lauta = lauta;
+        this.nullinKiertoSuunta = Suunta.ALAS;
     }
     
     /**
@@ -52,6 +54,7 @@ public class Ratkaisija {
             return false;
         }
         if(k1.y()<k2.y()){
+            System.out.println("check 1");
             yritaSiirtaaLaattaa(k1, Suunta.ALAS);
             return false;
         }
@@ -69,32 +72,42 @@ public class Ratkaisija {
      * @param s Siirtosuunta
      */
     private void yritaSiirtaaLaattaa(Koordinaatit k, Suunta s){
+        Koordinaatit nullToivottu = new Koordinaatit(k.x(), k.y());
         switch(s){
             case VASEN:
-                if(lauta.getNullSpace().x() == k.x()-1){
+                nullToivottu.decx();
+                if(lauta.getNullSpace().equals(nullToivottu)){
                     lauta.siirraVasemmalle(k.x(), k.y());
                 }else{
+                    siirraNullSpacea(k, s);
                     //siirrä nullspacea haluttuun paikkaan
                 }
                 break;
             case OIKEA:
-                if(lauta.getNullSpace().x() == k.x()+1){
+                nullToivottu.incx();
+                if(lauta.getNullSpace().equals(nullToivottu)){
                     lauta.siirraOikealle(k.x(), k.y());
                 }else{
+                    siirraNullSpacea(k, s);
                     //siirrä nullspacea haluttuun paikkaan
                 }
                 break;
             case YLOS:
-                if(lauta.getNullSpace().y() == k.y()-1){
+                nullToivottu.decy();
+                if(lauta.getNullSpace().equals(nullToivottu)){
                     lauta.siirraYlos(k.x(), k.y());
                 }else{
+                    siirraNullSpacea(k, s);
                     //siirrä nullspacea haluttuun paikkaan
                 }
                 break;
             case ALAS:
-                if(lauta.getNullSpace().y() == k.y()+1){
+                nullToivottu.incy();
+                if(lauta.getNullSpace().equals(nullToivottu)){
+                    System.out.println("check2");
                     lauta.siirraAlas(k.x(), k.y());
                 }else{
+                    siirraNullSpacea(k, s);
                     //siirrä nullspacea haluttuun paikkaan
                 }
                 break;
@@ -104,13 +117,17 @@ public class Ratkaisija {
     /**
      * Siirtää nullspacea toivottua paikkaa kohti siten, että lopulta 
      * tiettyä laattaa voidaan siirtää haluttuun suuntaan.
-     * @param vaistettava Seuraavaksi siirrettävä laatta, joka ei saa siirtyä.
+     * @param vaista Seuraavaksi siirrettävä laatta, joka ei saa siirtyä.
      * @param s Suunta, johon väistettävä laatta halutaan siirtää.
      */
-    public void siirraNullSpacea(Koordinaatit vaistettava, Suunta s){
-        Koordinaatit haluttuPaikka = maaritaPaikka(vaistettava, s); //Määritetään nullspacen haluttu paikka
+    public void siirraNullSpacea(Koordinaatit vaista, Suunta s){
+        Koordinaatit haluttuPaikka = maaritaPaikka(vaista, s); //Määritetään nullspacen haluttu paikka
         int nullx = lauta.getNullSpace().x();
         int nully = lauta.getNullSpace().y();
+        
+        if(vaista.onkoVieressa(lauta.getNullSpace())){//Aletaan kiertämään 
+            
+        }
         
         //TÄSSÄ PRIORISOIDAAN X-SUUNTAAN LIIKKUMISTA, MUTTA KANNATTAAKO TÄMÄ AINA?
         if(nullx<haluttuPaikka.x()){

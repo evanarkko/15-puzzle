@@ -3,6 +3,7 @@ package main15;
 import java.util.Arrays;
 import kayttoliittyma.Kayttoliittyma;
 import kayttoliittyma.Piirtoalusta;
+import pelilauta.Koordinaatit;
 import pelilauta.Laatta;
 import pelilauta.Lauta;
 import ratkaisija.Ratkaisija;
@@ -22,7 +23,9 @@ public class Main {
         Lauta lauta = new Lauta(4);
         lauta.lisaaLaatatJarjestykseen();
         Ratkaisija r = new Ratkaisija(lauta);
-        r.siirraNullSpacea(Suunta.YLOS);
+        r.siirraKohtiPaikkaa(new Koordinaatit(3, 3), new Koordinaatit(2, 3));
+        r.siirraKohtiPaikkaa(new Koordinaatit(3, 3), new Koordinaatit(2, 3));
+        r.siirraKohtiPaikkaa(new Koordinaatit(3, 3), new Koordinaatit(2, 3));
         
         
         Piirtoalusta p = new Piirtoalusta(lauta);

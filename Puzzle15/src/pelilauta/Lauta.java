@@ -248,7 +248,7 @@ public class Lauta {
      * @param arvo kyseessä olevan laatan arvo
      * @return 
      */
-    public Koordinaatit haeLaatanKoordinaatit(int arvo){
+    public Koordinaatit laatanKoordinaatit(int arvo){
         if(arvo > laattoja){
             System.out.println("haettavan laatan arvo liian iso!");
             return null;

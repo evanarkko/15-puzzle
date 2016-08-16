@@ -150,6 +150,51 @@ public class KoordinaatitTest {
         instance.decy(maara);
         assertEquals(vanha - maara, instance.y());
     }
+    /**
+     * Test of onkoVieressa method, of class Koordinaatit.
+     */
+    @Test
+    public void testOnkoVieressa() {
+        System.out.println("onkoVieressa");
+        this.instance = new Koordinaatit(2, 2);
+        Koordinaatit eka = new Koordinaatit(1, 2);
+        Koordinaatit toka = new Koordinaatit(3, 2);
+        Koordinaatit kolmas = new Koordinaatit(2, 1);
+        Koordinaatit neljas = new Koordinaatit(2, 3);
+        assertTrue(instance.onkoVieressa(eka));
+        assertTrue(instance.onkoVieressa(toka));
+        assertTrue(instance.onkoVieressa(kolmas));
+        assertTrue(instance.onkoVieressa(neljas));
+    }
+
+    /**
+     * Test of equals method, of class Koordinaatit.
+     */
+//    @Test
+//    public void testEquals() {
+//        System.out.println("equals");
+//        Object obj = null;
+//        Koordinaatit instance = null;
+//        boolean expResult = false;
+//        boolean result = instance.equals(obj);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+
+    /**
+     * Test of toString method, of class Koordinaatit.
+     */
+//    @Test
+//    public void testToString() {
+//        System.out.println("toString");
+//        Koordinaatit instance = null;
+//        String expResult = "";
+//        String result = instance.toString();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     
 
