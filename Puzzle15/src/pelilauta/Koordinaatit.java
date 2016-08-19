@@ -27,7 +27,7 @@ public class Koordinaatit {
     }
     
     /**
-     * Kasvattaa-koordinaatin arvoa yhdellä
+     * Kasvattaa x-koordinaatin arvoa yhdellä
      */
     public void incx(){
         x++;
@@ -88,6 +88,14 @@ public class Koordinaatit {
         if(this.equals(new Koordinaatit(k.x()+1, k.y()))) return true;
         if(this.equals(new Koordinaatit(k.x(), k.y()-1))) return true;
         if(this.equals(new Koordinaatit(k.x(), k.y()+1))) return true;
+        return false;
+    }
+    
+    public boolean onkoViistossa(Koordinaatit k){
+        if(this.x == k.x()-1 && this.y == k.y()-1) return true; 
+        if(this.x == k.x()+1 && this.y == k.y()-1) return true; 
+        if(this.x == k.x()-1 && this.y == k.y()+1) return true; 
+        if(this.x == k.x()+1 && this.y == k.y()+1) return true; 
         return false;
     }
 

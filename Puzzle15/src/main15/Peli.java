@@ -3,6 +3,7 @@ package main15;
 
 import kayttoliittyma.Piirtoalusta;
 import pelilauta.Lauta;
+import ratkaisija.Ratkaisija;
 
 /**
  * Sisältää peliloopin
@@ -11,11 +12,13 @@ import pelilauta.Lauta;
 public class Peli {
     private Lauta lauta;
     private Piirtoalusta piirtoalusta;
+    private Ratkaisija ratkaisija;
     //private tekoäly tko-aly;
 
     public Peli(Lauta lauta, Piirtoalusta p) {
         this.lauta = lauta;
         this.piirtoalusta = p;
+        this.ratkaisija = new Ratkaisija(lauta);
     }
     
     /**
@@ -24,8 +27,7 @@ public class Peli {
      * saatan heivata.
      */
     private void eteneTkoAly(){
-        //Tee asioita
-        
+        ratkaisija.seuraavaSiirto();
     }
     
     /**
@@ -36,7 +38,7 @@ public class Peli {
      */
     public void pelaa() throws InterruptedException{
         while(true){
-            Thread.sleep(1000);
+            Thread.sleep(500);
             eteneTkoAly();
             piirtoalusta.repaint();
         }
