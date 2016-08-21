@@ -23,8 +23,8 @@ public class Main {
         Lauta lauta = new Lauta(4);
         int[] arvot = {1, 2, 3, 4,
                        5, 6, 7, 8,
-                       10, 13, 10, 11, 
-                       15, 12, 9, 0};
+                       13, 14, 15, 12 , 
+                       9, 10, 11, 0};
         lauta.lisaaLaatat(arvot);
         Ratkaisija r = new Ratkaisija(lauta);
         

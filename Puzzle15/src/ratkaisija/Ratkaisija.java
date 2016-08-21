@@ -18,16 +18,18 @@ public class Ratkaisija {
     private Suunta nullinKiertoSuunta;//VASEN (myötäp.) tai OIKEA (vastap.)
     private boolean muodostelma;//Kertoo pitääkö tehdä erikoiskikkailut
     private boolean muodostelma2;
+    private boolean muodostelma3;
+    private boolean loppusilaus;
 
     public Ratkaisija(Lauta lauta) {
         this.lauta = lauta;
         this.alaKoske = new ArrayList<>();
-        alaKoske.add(8);
-        alaKoske.add(7);
         this.nullinKierto = false;
         this.nullinKiertoSuunta = Suunta.VASEN;
         this.muodostelma = false;
         this.muodostelma2 = false;
+        this.muodostelma3 = false;
+        this.loppusilaus = false;
     }
 
     /**
@@ -38,8 +40,10 @@ public class Ratkaisija {
             seuraavaSiirtoEkaRivi();
         } else if(!lauta.onkoRiviJarjestyksessa(1)){
             seuraavaSiirtoTokaRivi();
+        }else if(!lauta.onkoJarjestyksessa()){
+            seuraavaSiirtoLoput();
         }else{
-            seuraavaSiirtoKolmasRivi();
+            System.out.println("mitaihmetta");
         }
     }
 
@@ -149,12 +153,77 @@ public class Ratkaisija {
     /**
      * Siirtää yhtä laattaa kolmannen rivin ratkaisemiseksi..
      */
-    private void seuraavaSiirtoKolmasRivi(){
-        if(!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 2))){
-            System.out.println("sirtn ysiä");
-        }else if(!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(1, 2))){
-            System.out.println("sirretään kybä");
+    private void seuraavaSiirtoLoput(){
+        
+        if(loppusilaus){
+            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(13), new Koordinaatit(0, 3))){
+                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(14), new Koordinaatit(1, 3))){
+                    siirraKohtiPaikkaa(lauta.laatanKoordinaatit(15), new Koordinaatit(2, 3));
+                    siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(2, 2));
+                    siirraKohtiPaikkaa(lauta.laatanKoordinaatit(12), new Koordinaatit(3, 2));
+                }                     
+            }
+            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(14), new Koordinaatit(1, 3))){
+                siirraKohtiPaikkaa(lauta.laatanKoordinaatit(15), new Koordinaatit(2, 3));
+                siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(2, 2));
+                siirraKohtiPaikkaa(lauta.laatanKoordinaatit(12), new Koordinaatit(3, 2));
+            }
+        }else if(muodostelma3){//ysi alanurkassa, kymppi päällä, kakstoista ja ykstoista symmetriaan toisella puolella
+            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(12), new Koordinaatit(3, 3))){
+                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(3, 2))){
+                    muodostelma2 = false;//11 ja 12 reunassa päällekäin
+                }
+            }
+            
+            if(!muodostelma2){
+                if(lauta.laatanArvo(1, 3) == 13 && lauta.laatanArvo(2, 3) == 14){//tarkistaa onko valmis vain laittamaan laatat paikoilleen!
+                    if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(15), new Koordinaatit(2, 2))){
+                        if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(1, 2))){
+                            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 2))){
+                                    loppusilaus = true;
+                            }
+                        }
+                    }
+                }else{
+                    //13, 14, 15 huonossa järkässä. Pitää pyöritellä
+                    loppuPyorittely();
+                }
+            }
+        }else
+        if(muodostelma2){
+//            boolean apu = false;
+            if(muodostelma){
+                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(1, 2))){
+                    muodostelma = false;
+                }
+            }
+            if(!muodostelma){
+                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(12), new Koordinaatit(3, 2))){
+                    if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(2, 2))){
+                        muodostelma3 = true;
+                    }
+                }
+            }
+        }else if(muodostelma){
+            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 3))){
+               if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(0, 2))){
+                   muodostelma2 = true;
+               }
+            }
+        }else{
+                if(!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 2))){
+                    System.out.println("sirtn ysiä");
+            }else if(lauta.laatanArvo(1, 2) != 10){
+                    siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(1, 2));
+            }else{
+            muodostelma = true;
         }
+        } 
+        
+    }
+    
+    private void loppuPyorittely(){
+        System.out.println("pitaa loppupyöritella");
     }
 
     /**
@@ -358,7 +427,7 @@ public class Ratkaisija {
         }
 
         if (!onSiirretty) {
-            if (nullx < haluttuPaikka.x()) {
+            if (nullx < haluttuPaikka.x() && !alaKoske.contains(lauta.laatanArvo(nullx + 1, nully))) {
                 siirraNullSpacea(Suunta.OIKEA);
             } else if (nullx > haluttuPaikka.x() && !alaKoske.contains(lauta.laatanArvo(nullx - 1, nully))) {
                 siirraNullSpacea(Suunta.VASEN);

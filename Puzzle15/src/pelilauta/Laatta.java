@@ -22,7 +22,7 @@ public class Laatta {
     public Laatta(int arvo, int x, int y) {
         this.arvo = arvo;
         pelikoordinaatit = new Koordinaatit(x, y);
-        trueKoordinaatit = new Koordinaatit(0, 0);
+        trueKoordinaatit = new Koordinaatit(60, 60);
         koko = 60;
     }
 
