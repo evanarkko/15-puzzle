@@ -22,6 +22,8 @@ public class Ratkaisija {
     public Ratkaisija(Lauta lauta) {
         this.lauta = lauta;
         this.alaKoske = new ArrayList<>();
+        alaKoske.add(8);
+        alaKoske.add(7);
         this.nullinKierto = false;
         this.nullinKiertoSuunta = Suunta.VASEN;
         this.muodostelma = false;
@@ -34,15 +36,17 @@ public class Ratkaisija {
     public void seuraavaSiirto() {
         if (!lauta.onkoRiviJarjestyksessa(0)) {
             seuraavaSiirtoEkaRivi();
-        } else {
-            System.out.println("Eka rivi valmis");
+        } else if(!lauta.onkoRiviJarjestyksessa(1)){
+            seuraavaSiirtoTokaRivi();
+        }else{
+            seuraavaSiirtoKolmasRivi();
         }
     }
 
     /**
-     * Siirtää yhtä laattaa ekan rivin ratkaisemiseksi. Ehkä turha.
+     * Siirtää yhtä laattaa ekan rivin ratkaisemiseksi.
      */
-    public void seuraavaSiirtoEkaRivi() {
+    private void seuraavaSiirtoEkaRivi() {
         if (muodostelma2) {//1234 tokassa muodostelmassa (1:nen 2:sen alla)
             boolean viimeistely = lauta.laatanKoordinaatit(4).equals(new Koordinaatit(3, 0));
             if (!lauta.getNullSpace().equals(new Koordinaatit(3, 0)) && !viimeistely) {
@@ -55,8 +59,9 @@ public class Ratkaisija {
             } else if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(4), new Koordinaatit(3, 0))) {//Oikea yläkulma on tyhjä, joten siirretään eka rivi paikoilleen
                 if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(3), new Koordinaatit(2, 0))) {
                     if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(2), new Koordinaatit(1, 0))) {
-                        if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(1), new Koordinaatit(0, 0))) {
-
+                        siirraKohtiPaikkaa(lauta.laatanKoordinaatit(1), new Koordinaatit(0, 0));
+                        if (lauta.laatanKoordinaatit(1).equals(new Koordinaatit(0, 0))) {
+                            muodostelma2 = false;//nyt molemmat muodostelmat falsessa tokaa riviä varten TÄNNEHÄN EI IKUN EES TULLA!
                         }
                     }
                 }
@@ -78,21 +83,78 @@ public class Ratkaisija {
             } else//kohti ekaa muodostelmaa
             if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(1), new Koordinaatit(0, 0))) {
                 System.out.println("siirretän ygöst");
-//            siirraKohtiPaikkaa(lauta.laatanKoordinaatit(1), new Koordinaatit(0, 0));
             } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(2), new Koordinaatit(1, 0))) {
                 System.out.println("siirrtn kagost");
-//            siirraKohtiPaikkaa(lauta.laatanKoordinaatit(2), new Koordinaatit(1,0));
             } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(3), new Koordinaatit(2, 0))) {
                 System.out.println("siirretntnent kolmst");
-//            siirraKohtiPaikkaa(lauta.laatanKoordinaatit(3), new Koordinaatit(2, 0));
             } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(4), new Koordinaatit(2, 1))) {
                 System.out.println("siirmrn nelst");
-//            siirraKohtiPaikkaa(lauta.laatanKoordinaatit(4), new Koordinaatit(2,1));
             } else {
                 muodostelma = true;
             }
         }
 
+    }
+    
+    /**
+     * Siirtää yhtä laattaa tokan rivin ratkaisemiseksi.
+     */
+    private void seuraavaSiirtoTokaRivi(){
+        if(muodostelma2){
+            boolean viimeistely = lauta.laatanKoordinaatit(8).equals(new Koordinaatit(3, 1));
+            if (!lauta.getNullSpace().equals(new Koordinaatit(3, 1)) && !viimeistely) {
+                System.out.println("oikeeta yläkulmaa alas.");
+                if (lauta.getNullSpace().x() != 3) {
+                    siirraNullSpacea(Suunta.OIKEA);
+                } else {
+                    siirraNullSpacea(Suunta.YLOS);
+                }
+            } else if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(8), new Koordinaatit(3, 1))) {//Oikea yläkulma on tyhjä, joten siirretään eka rivi paikoilleen
+                if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(7), new Koordinaatit(2, 1))) {
+                    if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(6), new Koordinaatit(1, 1))) {
+                        if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(5), new Koordinaatit(0, 1))) {
+                            muodostelma2 = false;//nyt molemmat muodostelmat falsessa jotain varten
+                        }
+                    }
+                }
+            }
+        }else
+        if(muodostelma){
+            if (lauta.getNullSpace().equals(new Koordinaatit(3, 2))) {
+                    siirraNullSpacea(Suunta.ALAS);
+                } else if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(5), new Koordinaatit(0, 2))) {
+                    if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(6), new Koordinaatit(0, 1))) {
+                        if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(7), new Koordinaatit(1, 1))) {
+                            if (siirraKohtiPaikkaa(lauta.laatanKoordinaatit(8), new Koordinaatit(2, 1))) {
+                                muodostelma2 = true;
+                                muodostelma = false;
+                            }
+                        }
+                    }
+                }
+        }else//kohti kakkosrivin ekaa muodostelmaa
+        if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(5), new Koordinaatit(0, 1))) {
+                System.out.println("siirretän vitost");
+            } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(6), new Koordinaatit(1, 1))) {
+                System.out.println("siirrtn kudost");
+            } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(7), new Koordinaatit(2, 1))) {
+                System.out.println("siirretntnent sepee");
+            } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(8), new Koordinaatit(2, 2))) {
+                System.out.println("siirmrn kaz");
+            } else {
+                muodostelma = true;
+            }
+    }
+    
+    /**
+     * Siirtää yhtä laattaa kolmannen rivin ratkaisemiseksi..
+     */
+    private void seuraavaSiirtoKolmasRivi(){
+        if(!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 2))){
+            System.out.println("sirtn ysiä");
+        }else if(!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(1, 2))){
+            System.out.println("sirretään kybä");
+        }
     }
 
     /**
@@ -122,6 +184,8 @@ public class Ratkaisija {
             yritaSiirtaaLaattaa(siirrettava, Suunta.YLOS);
             return false;
         }
+//        nullinKierto = false;
+        alaKoske.add(lauta.laatanArvo(siirrettava.x(), siirrettava.y()));//MUTTA MILLOIN POISTETAAN?
         return true;
     }
 
@@ -138,6 +202,7 @@ public class Ratkaisija {
             case VASEN:
                 nullToivottu.decx();
                 if (lauta.getNullSpace().equals(nullToivottu)) {
+                    nullinKierto = false;
                     lauta.siirraVasemmalle(k.x(), k.y());
                 } else {
                     siirraNullSpacea(k, s);
@@ -147,6 +212,7 @@ public class Ratkaisija {
             case OIKEA:
                 nullToivottu.incx();
                 if (lauta.getNullSpace().equals(nullToivottu)) {
+                    nullinKierto = false;
                     lauta.siirraOikealle(k.x(), k.y());
                 } else {
                     siirraNullSpacea(k, s);
@@ -156,6 +222,7 @@ public class Ratkaisija {
             case YLOS:
                 nullToivottu.decy();
                 if (lauta.getNullSpace().equals(nullToivottu)) {
+                    nullinKierto = false;
                     lauta.siirraYlos(k.x(), k.y());
                 } else {
                     siirraNullSpacea(k, s);
@@ -165,6 +232,7 @@ public class Ratkaisija {
             case ALAS:
                 nullToivottu.incy();
                 if (lauta.getNullSpace().equals(nullToivottu)) {
+                    nullinKierto = false;
                     lauta.siirraAlas(k.x(), k.y());
                 } else {
                     siirraNullSpacea(k, s);
@@ -218,6 +286,7 @@ public class Ratkaisija {
                     break;
             }
         } else if (vaista.onkoVieressa(lauta.getNullSpace())) {//Null vieressä. Aletaan kiertämään 
+            System.out.println("onvieresnsoisenfaepin" + lauta.laatanArvo(vaista.x(), vaista.y()));
             onSiirretty = true;
             switch (s) {
                 case YLOS:
@@ -247,6 +316,15 @@ public class Ratkaisija {
                     } else//null on piilossa oikealla
                     {
                         if (nully > 0) {
+                            if (alaKoske.contains(lauta.laatanArvo(nullx, nully - 1))) {
+                                nullinKierto = true;
+                                if (nullx < vaista.x()) {
+                                nullinKiertoSuunta = Suunta.VASEN;
+                                } else {
+                                nullinKiertoSuunta = Suunta.OIKEA;
+                                }
+                                return;
+                            }
                             siirraNullSpacea(Suunta.YLOS);//Suositaan oikealta kiertämistä
                         } else {
                             siirraNullSpacea(Suunta.ALAS);//HUOM SUUNTAMUUTTUJA HYVÄ OLLA
@@ -282,7 +360,7 @@ public class Ratkaisija {
         if (!onSiirretty) {
             if (nullx < haluttuPaikka.x()) {
                 siirraNullSpacea(Suunta.OIKEA);
-            } else if (nullx > haluttuPaikka.x()) {
+            } else if (nullx > haluttuPaikka.x() && !alaKoske.contains(lauta.laatanArvo(nullx - 1, nully))) {
                 siirraNullSpacea(Suunta.VASEN);
             } else if (nully < haluttuPaikka.y()) {
                 siirraNullSpacea(Suunta.ALAS);
@@ -296,7 +374,7 @@ public class Ratkaisija {
     private void kierraNullia(Koordinaatit kierrettava) {
         int nullx = lauta.getNullSpace().x();
         int nully = lauta.getNullSpace().y();
-        if(kierrettava.onkoVieressa(lauta.getNullSpace())){
+        if(kierrettava.onkoVieressa(lauta.getNullSpace())){//NULL VIERESSÄ
             if(kierrettava.x() == nullx){//null joko yllä tai alla
                 if(kierrettava.y() < nully){//null alla
                     if(nullinKiertoSuunta == Suunta.VASEN){//Myötäpäivään
@@ -305,9 +383,55 @@ public class Ratkaisija {
                         siirraNullSpacea(Suunta.VASEN);
                     }
                 }else{//null päällä
-                    
+                    siirraNullSpacea(nullinKiertoSuunta);
+                }
+            }else{//null joko vasemmala tai oikealla
+                if(kierrettava.x() < nullx){//null oikealla
+                    if(nullinKiertoSuunta == Suunta.VASEN){
+                        siirraNullSpacea(Suunta.YLOS);
+                    }else{
+                        siirraNullSpacea(Suunta.ALAS);
+                    }
+                }else{//null vasemmala
+                    if(nullinKiertoSuunta == Suunta.VASEN){
+                        siirraNullSpacea(Suunta.ALAS);
+                    }else{
+                        siirraNullSpacea(Suunta.YLOS);
+                    }
                 }
             }
+        }else if(kierrettava.onkoViistossa(lauta.getNullSpace())){
+            if(kierrettava.y() < nully){//null alaviistossa
+                if(kierrettava.x() < nullx){//null oikealla alaviistossa
+                    if(nullinKiertoSuunta==Suunta.VASEN){
+                        siirraNullSpacea(Suunta.YLOS);
+                    }else{
+                        siirraNullSpacea(Suunta.VASEN);
+                    }
+                }else{//null on vasemmalla alaviistossa
+                    if(nullinKiertoSuunta==Suunta.VASEN){
+                        siirraNullSpacea(Suunta.OIKEA);
+                    }else{
+                        siirraNullSpacea(Suunta.YLOS);
+                    }
+                }
+            }else{//null yläviistossa
+                if(kierrettava.x() < nullx){//null oikealla yläviistossa
+                    if(nullinKiertoSuunta==Suunta.VASEN){
+                        siirraNullSpacea(nullinKiertoSuunta);
+                    }else{
+                        siirraNullSpacea(Suunta.ALAS);
+                    }
+                }else{//null vasemmalla yläviistossa
+                    if(nullinKiertoSuunta==Suunta.VASEN){
+                        siirraNullSpacea(Suunta.ALAS);
+                    }else{
+                        siirraNullSpacea(Suunta.OIKEA);
+                    }
+                }
+            }
+        }else{
+            System.out.println("KierraNullia- metodi ei tee mtn!?");
         }
     }
 

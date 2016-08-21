@@ -57,16 +57,16 @@ public class KoordinaattiMuuntajaTest {
     /**
      * Test of gameToTrue method, of class KoordinaattiMuuntaja.
      */
-    @Test
-    public void testGameToTrue() {
-        System.out.println("gameToTrue");
-        Koordinaatit k = null;
-        KoordinaattiMuuntaja instance = null;
-        Koordinaatit expResult = null;
-        Koordinaatit result = instance.gameToTrue(k);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testGameToTrue() {
+//        System.out.println("gameToTrue");
+//        Koordinaatit k = null;
+//        KoordinaattiMuuntaja instance = null;
+//        Koordinaatit expResult = null;
+//        Koordinaatit result = instance.gameToTrue(k);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }
