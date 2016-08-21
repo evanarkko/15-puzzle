@@ -52,6 +52,28 @@ public class Lauta {
             aloitusx = marg;
         }
     }
+    
+    public void lisaaLaatat(int[] arvot){
+        int aloitusx = marg;
+        int aloitusy = marg;
+        int apuLaskuri = 0;
+        
+        for (int i = 0; i < lauta.length; i++) {
+            for (int a = 0; a < lauta[0].length; a++) {
+                if (apuLaskuri < laattoja) {
+                    int arvo = arvot[(lauta.length*i) + a];
+                    
+                    Laatta uusiLaatta = new Laatta(arvo, a, i);
+                    uusiLaatta.setTrueKoordinaatit(aloitusx, aloitusy);
+                    lauta[i][a] = uusiLaatta;
+                    apuLaskuri++;
+                    aloitusx += koko;
+                }
+            }
+            aloitusy += koko;
+            aloitusx = marg;
+        }
+    }
 
     @Override
     public String toString() {
@@ -215,6 +237,8 @@ public class Lauta {
      * @return 
      */
     public boolean onkoRiviJarjestyksessa(int riviNro){
+        if(lauta[riviNro][0] == null)return false;//aika kömpelö/typerä whatchu gonna do?
+        if(lauta[riviNro][0].getArvo() != riviNro*4+1)return false;
 //        if(riviNro > lauta.length)System.out.println("liian suuri rivinro");
         Laatta[] rivi = lauta[riviNro];
         if(riviNro == lauta.length-1){//Erikoistapaus jos tarkistetaan viimeistä riviä
@@ -262,6 +286,10 @@ public class Lauta {
             }
         }
         return etsittavaLaatta.getPelikoordinaatit();
+    }
+    
+    public int laatanArvo(int x, int y){
+        return lauta[y][x].getArvo();
     }
 
 }

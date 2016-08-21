@@ -21,15 +21,20 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Laatta laatta = new Laatta(1, 50, 50);
         Lauta lauta = new Lauta(4);
-        lauta.lisaaLaatat();
+        int[] arvot = {2, 3, 4, 5,
+                       1, 6, 7, 8,
+                       9, 10, 11, 12, 
+                       13, 14, 15};
+        lauta.lisaaLaatat(arvot);
         Ratkaisija r = new Ratkaisija(lauta);
+        
+        System.out.println(lauta.laatanArvo(0, 0));
         
         Piirtoalusta p = new Piirtoalusta(lauta);
         Kayttoliittyma k = new Kayttoliittyma(p);
         Peli peli = new Peli(lauta, p);
         k.run();
 
-        peli.pelaa();
 
     }
 
