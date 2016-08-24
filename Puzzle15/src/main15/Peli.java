@@ -38,7 +38,7 @@ public class Peli {
      */
     public void pelaa() throws InterruptedException{
         while(true){
-            Thread.sleep(200);
+            Thread.sleep(400);
             
             eteneTkoAly();
             piirtoalusta.repaint();

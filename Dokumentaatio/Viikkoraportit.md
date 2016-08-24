@@ -39,3 +39,17 @@ Ohjelmoin myös animaatiota hallinnoivan peliloopin, joka kutsuu piirtoalustan r
 sijaitsee uudessa Peli-luokassa. Siirrot ovat edelleen köykäisiä (Laatta katoaa ja ilmestyy viereen).
 Aloitin paremman animaation näpertelyn. Lopetin kuitenkin nopeasti, sillä toistaiseksi
 tärkeintä on saada itse ratkaisualgo valmiiksi.
+
+Viikko 4:
+Käytin suurimman osan ajasta ydinaiheen kehittämiseen. Ratkaisija ratkoo jo koko pelin mutta ei täysin
+jokaisesta alkutilanteesta. Bugeja on siis etsittävä ja korjattava. Muutama bugi onkin jo löytynyt vaikka
+en niitä ole korjaamaan ehtinyt. Rivit 1 ja 2 ratkaistaan jokaisesta alkutilanteesta mitä olen viimeaikoina
+testaillut.
+
+Rivejä on tullut useita satoja, mutta koodia on turhankin paljon ja käytän paljon switch statementia.
+Muutama metodi on myös yltynyt turhan pitkäksi ratkaisija luokassa. Rivien 1 ja 2 ratkaisevat metodit ovat
+erilliset, mutta logiikaltaan identtiset, joten ne voisi varmaankin yhdistää. 
+
+Aloitin omien tietorakenteiden tekemistä. Implementoin vain ArrayListin, joten hirveästi tekemistä ei ole.
+Katsoin ArrayList java apista apua ja muualtakin netistä. Homma vaikuttaa aika selvältä. Oma ArrayListini
+ei silti ole vielä valmis.

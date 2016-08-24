@@ -289,6 +289,7 @@ public class Lauta {
     }
     
     public int laatanArvo(int x, int y){
+        if(lauta[y][x] == null)return 0;
         return lauta[y][x].getArvo();
     }
 
