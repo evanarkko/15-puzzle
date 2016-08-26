@@ -18,7 +18,6 @@ public class Ratkaisija {
     private Suunta nullinKiertoSuunta;//VASEN (myötäp.) tai OIKEA (vastap.)
     private boolean muodostelma;//Kertoo pitääkö tehdä erikoiskikkailut
     private boolean muodostelma2;
-    private boolean muodostelma3;
     private boolean loput2;
     private boolean tieltaPois;
     private boolean loppusilaus;
@@ -32,13 +31,16 @@ public class Ratkaisija {
         this.nullinKiertoSuunta = Suunta.VASEN;
         this.muodostelma = false;
         this.muodostelma2 = false;
-        this.muodostelma3 = false;
-        this.loput2 = false;
         this.tieltaPois = false;
         this.loppusilaus = false;
-        this.loppuPyörittelyCounter = 0;
     }
     
+    
+    /**
+     * Lisää annetut parametrit alaKoske-listalle, eli estää niiden siirtämisen
+     * pois paikoiltaan.
+     * @param koskemattomat 
+     */
     private void alaKoskeNaihin(int... koskemattomat){
         for(int i : koskemattomat){
             if(!alaKoske.contains(i)){
@@ -58,13 +60,11 @@ public class Ratkaisija {
         } else if(!lauta.onkoRiviJarjestyksessa(1)){
             alaKoskeNaihin(1, 2, 3, 4);//varmistetaan ykkösrivin koskemattomuus
             seuraavaSiirtoTokaRivi();
-        }else if(!loput2){
-            alaKoskeNaihin(5, 6, 7, 8);//varmistetaan kakkosrivin koskemattomuus
-            seuraavaSiirtoLoput1();
         }else if(!loppusilaus){
-            seuraavaSiirtoLoput2();
+            alaKoskeNaihin(5, 6, 7, 8);//varmistetaan kakkosrivin koskemattomuus
+            vierasLoput1();
         }else{
-            loppusilaus();
+            vierasLoppuPyorittely();
         }
     }
 
@@ -172,98 +172,67 @@ public class Ratkaisija {
             }
     }
     
-    
-    private void seuraavaSiirtoLoput1(){
-        if(muodostelma3){
-            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(12), new Koordinaatit(3, 3))){
-               if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(3, 2))){//10 ja 9 nyt seinää vasten NULL ON NYT (2, 2)
-                   loput2 = true;
-                   muodostelma3 = false;
-               }
+    private void vierasLoput1(){
+        if(muodostelma2){//9,13 paikoillaan 10,14 setup paikoilla
+            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(14), new Koordinaatit(1,3))){
+                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(1,2))){
+                    loppusilaus = true;
+                }
             }
-        }else if(muodostelma2){
-            if(tieltaPois){
-                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(12), new Koordinaatit(3, 2))){
-                    if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(2, 2))){
-                        muodostelma3 = true;
-                        muodostelma2 = false;
+        }else if(muodostelma){ //13 ja 9 are in setup positions, put them in and set up 14 and 10
+            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(13), new Koordinaatit(0,3))){//13 paikalleen
+                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 2))){//9 paikalleen
+                    if(!tieltaPois){
+                        if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(3,2))){
+                            tieltaPois = true;
+                            //EHKÄ POISTA VIELÄ 10 ÄLÄKOSKE -LISTALTA
+                        }
+                    }else{
+                        if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(14), new Koordinaatit(1,2))){
+                            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(2,2))){
+                                muodostelma2 = true;
+                            }
+                        }
                     }
                 }
-            }else{
-                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(1, 2))){
-                    tieltaPois = true;
-                }
             }
-        }else if(muodostelma){
-            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 3))){
-               if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(0, 2))){//10 ja 9 nyt seinää vasten
-                   muodostelma2 = true;
-                   muodostelma = false; //?
-               }
-            }
-        }else if(tieltaPois){//
-            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 2))){//9 väliaikaisesti paikalleen
-                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(1, 2))){//10 väliaikaisesti paikalleen
-                    muodostelma = true;
-                    tieltaPois = false;
-                }
-            }
-        }else{
-            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(3, 2))){//10 pois tieltä
+        }else if(!tieltaPois){
+            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(3,2))){
+                tieltaPois = true;
                 int index = 0;
                 for(int i : alaKoske){
-                    if(i==10){
+                    if(i==9){
                         break;
                     }
                     index++;
                 }
                 alaKoske.remove(index);
-                tieltaPois = true;
             }
-        }
-    }
-    
-    private void seuraavaSiirtoLoput2(){
-        if(lauta.laatanArvo(1, 3) == 13 && lauta.laatanArvo(2, 3) == 14){//nyt voidaan siirtää täysin köykäisesti kaikki paikoilleen
-            loppusilaus = true;
-        }else if(loppuPyörittelyCounter < 12){
-            loppuPyorittely();
         }else{
-            //jos loppupyörittelyllä ei saa oikeaa järjestystä. Tähänkin keksitään vielä yksiselitteinen köykäinen siirtoyhdistelmä
-            //Tämän jälkeen nollataan loppupyörittelycounter ja peli saadaan ratkaistua
-        }
-    }
-    
-    private void loppusilaus(){
-        if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(1, 2))){//siirtää 15 haluttuun paikkaan samalla
-            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(0, 2))){//9 paikoilleen lopullisesti
-                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(14), new Koordinaatit(1, 3))){//siirtää 13 haluttuun paikkaan samalla
-                    if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(15), new Koordinaatit(2, 3))){//15 paikoilleen lopullisesti
-                        if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(11), new Koordinaatit(2, 2))){//11 paikoilleen lopullisesti
-                            siirraKohtiPaikkaa(lauta.laatanKoordinaatit(12), new Koordinaatit(3, 2));//12 paikoilleen lopullisesti
-                        }
-                    }
+            if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(13), new Koordinaatit(0,2))){
+                if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(9), new Koordinaatit(1,2))){
+                    muodostelma = true; //13 ja 9 in setup positions
+                    tieltaPois = false;
                 }
             }
         }
     }
     
-    private void loppuPyorittely(){
-        System.out.println("loppupyöritellään");
-        loppuPyörittelyCounter++;
-        Koordinaatit n = lauta.getNullSpace();
-        if(n.equals(new Koordinaatit(1, 2))){
-            siirraNullSpacea(Suunta.ALAS);
-        }else if(n.equals(new Koordinaatit(1, 3))){
+    private void vierasLoppuPyorittely(){
+        if(lauta.getNullSpace().equals(new Koordinaatit(2, 2))){
             siirraNullSpacea(Suunta.OIKEA);
-        }else if(n.equals(new Koordinaatit(2, 2))){
+        }else if(lauta.getNullSpace().equals(new Koordinaatit(3, 2))){
+            siirraNullSpacea(Suunta.ALAS);
+        }else if(lauta.getNullSpace().equals(new Koordinaatit(3, 3))){
             siirraNullSpacea(Suunta.VASEN);
-        }else if(n.equals(new Koordinaatit(2, 3))){
+        }else if(lauta.getNullSpace().equals(new Koordinaatit(2, 3))){
             siirraNullSpacea(Suunta.YLOS);
         }else{
-            System.out.println("loppupyörittely kutsuttu vaikka nul ei oikealla alueella");
+            System.out.println("vieras loppupyörittely kutsuttu vaikka null ei ole alaoikealla");
         }
     }
+    
+   
 
     /**
      * Tekee siirron tietyn laatan saamiseksi lähemmäs haluttua kohdetta (jos
