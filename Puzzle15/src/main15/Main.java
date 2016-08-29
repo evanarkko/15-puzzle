@@ -26,7 +26,7 @@ public class Main {
                        10, 8, 7, 5,
                        15, 6, 2, 13 , 
                        9, 14, 1, 0};
-        lauta.lisaaLaatat(arvot);
+        lauta.lisaaLaatat();
         Ratkaisija r = new Ratkaisija(lauta);
         
         

@@ -185,6 +185,14 @@ public class Ratkaisija {
                     if(!tieltaPois){
                         if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(3,2))){
                             tieltaPois = true;
+                            int index = 0;
+                            for(int i : alaKoske){
+                                if(i == 10){
+                                    break;
+                                }
+                                index++;
+                            }
+                            alaKoske.remove(index);
                             //EHKÄ POISTA VIELÄ 10 ÄLÄKOSKE -LISTALTA
                         }
                     }else{

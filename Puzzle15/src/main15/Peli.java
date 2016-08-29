@@ -38,10 +38,12 @@ public class Peli {
      */
     public void pelaa() throws InterruptedException{
         while(true){
-            Thread.sleep(3);
-            
+            Thread.sleep(5);
             eteneTkoAly();
             piirtoalusta.repaint();
+            if(lauta.onkoJarjestyksessa()){
+                piirtoalusta.setPelikaynnis(false);
+            }
         }
     }
     
