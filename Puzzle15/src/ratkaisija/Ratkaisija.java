@@ -105,14 +105,16 @@ public class Ratkaisija {
                         }
                     }
                 }
-            } else//kohti ekaa muodostelmaa
+            } else//kohti ekaa muodostelmaa.
             if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(1), new Koordinaatit(0, 0))) {
                 System.out.println("siirretän ygöst");
             } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(2), new Koordinaatit(1, 0))) {
                 System.out.println("siirrtn kagost");
             } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(3), new Koordinaatit(2, 0))) {
                 System.out.println("siirretntnent kolmst");
-            } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(4), new Koordinaatit(2, 1))) {
+            } else if (lauta.laatanKoordinaatit(4).equals(new Koordinaatit(3, 1)) && lauta.getNullSpace().equals(new Koordinaatit(3, 0))){
+                lauta.siirraYlos(3, 1);
+            } else if(!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(4), new Koordinaatit(2, 1))) {
                 System.out.println("siirmrn nelst");
             } else {
                 muodostelma = true;
@@ -165,6 +167,8 @@ public class Ratkaisija {
                 System.out.println("siirrtn kudost");
             } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(7), new Koordinaatit(2, 1))) {
                 System.out.println("siirretntnent sepee");
+            } else if (lauta.laatanKoordinaatit(8).equals(new Koordinaatit(3, 2)) && lauta.getNullSpace().equals(new Koordinaatit(3, 1))){
+                lauta.siirraYlos(3, 2);
             } else if (!siirraKohtiPaikkaa(lauta.laatanKoordinaatit(8), new Koordinaatit(2, 2))) {
                 System.out.println("siirmrn kaz");
             } else {

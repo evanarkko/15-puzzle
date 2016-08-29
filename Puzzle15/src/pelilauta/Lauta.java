@@ -31,25 +31,49 @@ public class Lauta {
     /**
      * Luo ja lisää laatat laudalle satunnaiseen arvojärjestykseen.
      */
-    public void lisaaLaatat() {
-        int aloitusx = marg;
-        int aloitusy = marg;
-        int apuLaskuri = 0;
-        
-        for (int i = 0; i < lauta.length; i++) {
-            for (int a = 0; a < lauta[0].length; a++) {
-                if (apuLaskuri < laattoja) {
-                    int arvo = arvoArray.remove((int) (Math.random()*arvoArray.size()));
-                    
-                    Laatta uusiLaatta = new Laatta(arvo, a, i);
-                    uusiLaatta.setTrueKoordinaatit(aloitusx, aloitusy);
-                    lauta[i][a] = uusiLaatta;
-                    apuLaskuri++;
-                    aloitusx += koko;
-                }
+    public void lisaaLaatatSekoitettuna() {
+        this.lisaaLaatatJarjestykseen();
+        this.sekoitaLaatat();
+        //sekoita
+    }
+    
+    public void sekoitaLaatat(){//priva?
+        for(int i = 0; i < 200; i++){
+            this.satunnainenSiirto();
+        }
+    }
+    
+    public void satunnainenSiirto(){
+        int n;
+        boolean uudestaan = true;
+        while(uudestaan){
+            n = (int) (Math.random() * 4); //n välillä 0-3
+            switch (n){
+                case 0://siirretään oikealle jos pystyy
+                    if(nullSpace.x()>0){
+                        siirraOikealle(nullSpace.x()-1, nullSpace.y());
+                        uudestaan = false;
+                    }
+                    break;
+                case 1://vasemmalle jos pydee
+                    if(nullSpace.x()<lauta.length-1){
+                        siirraVasemmalle(nullSpace.x()+1, nullSpace.y());
+                        uudestaan = false;
+                    }
+                    break;
+                case 2://Alaz jos mahd.
+                    if(nullSpace.y()>0){
+                        siirraAlas(nullSpace.x(), nullSpace.y()-1);
+                        uudestaan = false;
+                    }
+                    break;
+                case 3://ehk ylos
+                    if(nullSpace.y()<lauta.length-1){
+                        siirraYlos(nullSpace.x(), nullSpace.y()+1);
+                        uudestaan = false;
+                    }
+                    break;
             }
-            aloitusy += koko;
-            aloitusx = marg;
         }
     }
     

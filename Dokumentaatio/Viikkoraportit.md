@@ -53,3 +53,20 @@ erilliset, mutta logiikaltaan identtiset, joten ne voisi varmaankin yhdistää.
 Aloitin omien tietorakenteiden tekemistä. Implementoin vain ArrayListin, joten hirveästi tekemistä ei ole.
 Katsoin ArrayList java apista apua ja muualtakin netistä. Homma vaikuttaa aika selvältä. Oma ArrayListini
 ei silti ole vielä valmis.
+
+
+Viikko 5:
+Päätehtävä lopullisesti valmiiksi. Sain sen jo tietämättäni viime viikolla valmiiksi muutamaa bugia lukuun
+ottamatta. Muutin lähestymistapaa ratkaisuun ja huomasin, että ratkaisu ei vieläkään toimi vaan jää
+joskus loputtomaan pyörittelylooppiin pelin lopussa. Hoksasin, että peliä ei ehkä olekaan edes mahdollista
+ratkaista jokaisesta alkutilanteesta. Googlailin vähän ja tämä osoittautui todeksi. Vika olikin siis
+laattojen arpovassa metodissa. Se ei saa olla täysin satunnainen. Vietin hävettävän paljon aikaa
+yrittäen muokata ratkaisualgoa turhaan.
+
+Tein siis uuden laattoja lisäävän metodin, joka koostuu kahdesta osasta: laattojen lisäämisestä oikeaan
+järjestykseen ja niiden sekoittamisesta. Sekoitusmetodi on 200 iterointikierrosta satunnaisia
+siirtoja. Implementoin myös siis satunnainenSiirto()-metodin.
+
+Perus GUI ja työ on nyt valmis. Peli ei ole vielä käyttäjälle pelattava. Aloitin jo pari viikkoa sitten
+MouseListenerin luomisen, mutta lopetin kesken. Tulevalla viikolla aion tehdä tämän loppuun, tehdä GUI:sta 
+hieman paremman ja muutenvaan siistiä koodia.
