@@ -48,9 +48,9 @@ public class KoordinaattiMuuntajaTest {
      */
     @Test
     public void testTrueToGame() {
-        KoordinaattiMuuntaja instance = new KoordinaattiMuuntaja(50, 50);
+        KoordinaattiMuuntaja instance = new KoordinaattiMuuntaja();
         Koordinaatit expResult = null;
-        Koordinaatit result = instance.trueToGame();
+        Koordinaatit result = instance.trueToGame(new Koordinaatit (0, 0));
         assertEquals(expResult, result);
     }
 

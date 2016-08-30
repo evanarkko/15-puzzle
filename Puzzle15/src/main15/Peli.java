@@ -17,8 +17,7 @@ public class Peli {
     private boolean ratkaisuMode;
     private boolean sekoitusMode;
     private int sekoituksia;
-    private int repaintNopeus = 50;
-    private int siirtoja;
+    private int repaintTauko = 50;
 
     public Peli(Lauta lauta, Piirtoalusta p) {
         this.lauta = lauta;
@@ -27,7 +26,6 @@ public class Peli {
         this.ratkaisuMode = false;
         this.sekoitusMode = false;
         sekoituksia = 0;
-        siirtoja = 0;
     }
 
     /**
@@ -36,17 +34,17 @@ public class Peli {
      */
     private void etenePeli() {
         if (ratkaisuMode) {
-            repaintNopeus = 150;
+            repaintTauko = 150;
             ratkaisija.seuraavaSiirto();
             piirtoalusta.incMoves();
             if (lauta.onkoJarjestyksessa()) {
                 lopetaRatkaiseminen();
             }
         } else if (sekoitusMode) {
-            repaintNopeus = 30;
+            repaintTauko = 1;
             lauta.satunnainenSiirto();
             sekoituksia++;
-            if (sekoituksia > 200) {
+            if (sekoituksia > 250) {
                 lopetaSekoittaminen();
             }
         }
@@ -61,7 +59,7 @@ public class Peli {
      */
     public void pelaa() throws InterruptedException {
         while (true) {
-            Thread.sleep(repaintNopeus);
+            Thread.sleep(repaintTauko);
             etenePeli();
             piirtoalusta.repaint();
             if (lauta.onkoJarjestyksessa()) {
