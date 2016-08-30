@@ -3,6 +3,8 @@ package main15;
 import java.util.Arrays;
 import kayttoliittyma.Kayttoliittyma;
 import kayttoliittyma.Piirtoalusta;
+import kayttoliittyma.RatkaisijaKuuntelija;
+import kayttoliittyma.SekoittajaKuuntelija;
 import pelilauta.Koordinaatit;
 import pelilauta.Laatta;
 import pelilauta.Lauta;
@@ -27,16 +29,17 @@ public class Main {
                        15, 6, 2, 13 , 
                        9, 14, 1, 0};
         lauta.lisaaLaatatSekoitettuna();
-        Ratkaisija r = new Ratkaisija(lauta);
         
         
         Piirtoalusta p = new Piirtoalusta(lauta);
-        Kayttoliittyma k = new Kayttoliittyma(p);
         Peli peli = new Peli(lauta, p);
+        
+        SekoittajaKuuntelija sk = new SekoittajaKuuntelija(peli);
+        RatkaisijaKuuntelija rk = new RatkaisijaKuuntelija(peli);
+        Kayttoliittyma k = new Kayttoliittyma(p, rk, sk);
         k.run();
 
         peli.pelaa();
-
     }
 
 }

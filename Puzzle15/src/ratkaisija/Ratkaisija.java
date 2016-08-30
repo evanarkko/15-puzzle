@@ -35,6 +35,16 @@ public class Ratkaisija {
         this.loppusilaus = false;
     }
     
+    public void initialize(){
+        this.alaKoske = new ArrayList<>();
+        this.nullinKierto = false;
+        this.nullinKiertoSuunta = Suunta.VASEN;
+        this.muodostelma = false;
+        this.muodostelma2 = false;
+        this.tieltaPois = false;
+        this.loppusilaus = false;
+    }
+    
     
     /**
      * Lisää annetut parametrit alaKoske-listalle, eli estää niiden siirtämisen

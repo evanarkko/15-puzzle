@@ -46,7 +46,7 @@ public class LautaTest {
     @Test
     public void testLisaaLaatat() {
         System.out.println("lisaaLaatat");
-        instance.lisaaLaatat();
+        instance.lisaaLaatatSekoitettuna();
         int laattoja = instance.getLaattoja();
         assertEquals(laattoja, 15);
     }
@@ -140,6 +140,78 @@ public class LautaTest {
         instance.lisaaLaatatJarjestykseen();
         boolean result = instance.onkoJarjestyksessa();
         assertTrue(result);
+    }
+
+    /**
+     * Test of sekoitaLaatat method, of class Lauta.
+     */
+    @Test
+    public void testSekoitaLaatat() {
+        System.out.println("sekoitaLaatat");
+        instance.lisaaLaatatJarjestykseen();
+        instance.sekoitaLaatat();
+        assertFalse(instance.onkoJarjestyksessa());
+    }
+
+    /**
+     * Test of satunnainenSiirto method, of class Lauta.
+     */
+    @Test
+    public void testSatunnainenSiirto() {
+        System.out.println("satunnainenSiirto");
+        instance.lisaaLaatatJarjestykseen();
+        int vanhaX = instance.getNullSpace().x();
+        int vanhaY = instance.getNullSpace().y();
+        instance.satunnainenSiirto();
+        assertFalse(vanhaX == instance.getNullSpace().x() &&
+                vanhaY == instance.getNullSpace().y());
+    }
+
+    /**
+     * Test of onkoRiviJarjestyksessa method, of class Lauta.
+     */
+    @Test
+    public void testOnkoRiviJarjestyksessa() {
+        System.out.println("onkoRiviJarjestyksessa");
+        instance.lisaaLaatatJarjestykseen();
+        assertTrue(instance.onkoRiviJarjestyksessa(1));
+        instance.sekoitaLaatat();
+        assertFalse(instance.onkoRiviJarjestyksessa(2));
+    }
+
+    /**
+     * Test of getNullSpace method, of class Lauta.
+     */
+    @Test
+    public void testGetNullSpace() {
+        System.out.println("getNullSpace");
+        instance.lisaaLaatatJarjestykseen();
+        Koordinaatit result = instance.getNullSpace();
+        assertTrue(result.equals(new Koordinaatit(3, 3)));
+    }
+
+    /**
+     * Test of laatanKoordinaatit method, of class Lauta.
+     */
+    @Test
+    public void testLaatanKoordinaatit() {
+        System.out.println("laatanKoordinaatit");
+        instance.lisaaLaatatJarjestykseen();
+        assertTrue(instance.laatanKoordinaatit(1).equals(new Koordinaatit(0, 0)));
+        assertTrue(instance.laatanKoordinaatit(15).equals(new Koordinaatit(2, 3)));
+    }
+
+    /**
+     * Test of laatanArvo method, of class Lauta.
+     */
+    @Test
+    public void testLaatanArvo() {
+        System.out.println("laatanArvo");
+        int x = 0;
+        int y = 0;
+        instance.lisaaLaatatJarjestykseen();
+        assertEquals(instance.laatanArvo(x, y), 1);
+        assertEquals(instance.laatanArvo(2, 3), 15);
     }
     
 }
