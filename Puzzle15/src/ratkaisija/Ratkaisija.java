@@ -72,9 +72,9 @@ public class Ratkaisija {
             seuraavaSiirtoTokaRivi();
         }else if(!loppusilaus){
             alaKoskeNaihin(5, 6, 7, 8);//varmistetaan kakkosrivin koskemattomuus
-            vierasLoput1();
+            loputRiveista();
         }else{
-            vierasLoppuPyorittely();
+            loppuPyorittely();
         }
     }
 
@@ -186,7 +186,7 @@ public class Ratkaisija {
             }
     }
     
-    private void vierasLoput1(){
+    private void loputRiveista(){
         if(muodostelma2){//9,13 paikoillaan 10,14 setup paikoilla
             if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(14), new Koordinaatit(1,3))){
                 if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(10), new Koordinaatit(1,2))){
@@ -240,7 +240,7 @@ public class Ratkaisija {
         }
     }
     
-    private void vierasLoppuPyorittely(){
+    private void loppuPyorittely(){
         if(lauta.getNullSpace().equals(new Koordinaatit(2, 2))){
             siirraNullSpacea(Suunta.OIKEA);
         }else if(lauta.getNullSpace().equals(new Koordinaatit(3, 2))){

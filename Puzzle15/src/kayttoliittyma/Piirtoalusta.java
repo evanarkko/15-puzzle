@@ -1,6 +1,7 @@
 package kayttoliittyma;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import pelilauta.*;
@@ -13,7 +14,7 @@ import pelilauta.*;
 public class Piirtoalusta extends JPanel {
     private final Lauta lauta;
     private int moves;
-    private boolean pelikaynnis = true;
+    private boolean peliRatkaistu = false;
 
     public Piirtoalusta(Lauta l) {
         lauta = l;
@@ -29,7 +30,18 @@ public class Piirtoalusta extends JPanel {
 //            System.out.println(l);
         }
         g.setColor(Color.red);
-        g.drawString("SIIRTOJA: " + String.valueOf(moves), 10, 25);
+        g.drawString("MOVES: " + String.valueOf(moves), 10, 25);
+        
+        if(peliRatkaistu){
+            g.setColor(Color.white);
+            g.setFont(new Font("Lobster Two", Font.PLAIN, 30));
+            int x = 195;
+            int y1 = 25;
+            int y2 = y1 + 15;
+            g.drawString("PUZZLE", x, y1);
+            g.setColor(Color.green);
+            g.drawString("SOLVED", x, y2);
+        }
         
     }
     
@@ -41,8 +53,10 @@ public class Piirtoalusta extends JPanel {
         this.moves = 0;
     }
 
-    public void setPelikaynnis(boolean pelikaynnis) {
-        this.pelikaynnis = pelikaynnis;
+    public void setPeliRatkaistu(boolean peliRatkaistu) {
+        this.peliRatkaistu = peliRatkaistu;
     }
+    
+    
 
 }

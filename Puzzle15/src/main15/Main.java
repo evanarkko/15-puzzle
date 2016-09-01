@@ -1,10 +1,13 @@
 package main15;
 
+import Pelilogiikka.Peli;
 import java.util.Arrays;
+import kuuntelijat.HiirenKuuntelija;
 import kayttoliittyma.Kayttoliittyma;
 import kayttoliittyma.Piirtoalusta;
-import kayttoliittyma.RatkaisijaKuuntelija;
-import kayttoliittyma.SekoittajaKuuntelija;
+import kuuntelijat.NappaintenKuuntelija;
+import kuuntelijat.RatkaisijaKuuntelija;
+import kuuntelijat.SekoittajaKuuntelija;
 import pelilauta.Koordinaatit;
 import pelilauta.Laatta;
 import pelilauta.Lauta;
@@ -34,9 +37,11 @@ public class Main {
         Piirtoalusta p = new Piirtoalusta(lauta);
         Peli peli = new Peli(lauta, p);
         
+        NappaintenKuuntelija nk = new NappaintenKuuntelija(peli.getLaatanSiirtaja());
+        HiirenKuuntelija hk = new HiirenKuuntelija(peli.getLaatanSiirtaja());
         SekoittajaKuuntelija sk = new SekoittajaKuuntelija(peli);
         RatkaisijaKuuntelija rk = new RatkaisijaKuuntelija(peli);
-        Kayttoliittyma k = new Kayttoliittyma(p, rk, sk);
+        Kayttoliittyma k = new Kayttoliittyma(p, rk, sk, hk, nk);
         k.run();
 
         peli.pelaa();

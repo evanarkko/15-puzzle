@@ -5,12 +5,15 @@
  */
 package kayttoliittyma;
 
+import kuuntelijat.HiirenKuuntelija;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import javax.swing.*;
+import kuuntelijat.NappaintenKuuntelija;
 
 /**
  * run()-metodin toteuttama käyttöliittymä pelaajaa varten
@@ -21,13 +24,17 @@ public class Kayttoliittyma implements Runnable{
     private JPanel piirtoalusta;
     private ActionListener rKuuntelija;
     private ActionListener sKuuntelija;
+    private HiirenKuuntelija hKuuntelija;
+    private KeyListener nKuuntelija;
 
     public Kayttoliittyma(JPanel piirtoalusta, ActionListener rKuuntelija,
-            ActionListener sKuuntelija) {
+            ActionListener sKuuntelija, HiirenKuuntelija hk, NappaintenKuuntelija nk) {
         this.frame = new JFrame("Puzzle");
         this.piirtoalusta = piirtoalusta;
         this.rKuuntelija = rKuuntelija;
         this.sKuuntelija = sKuuntelija;
+        this.hKuuntelija = hk;
+        this.nKuuntelija = nk;
     }
     
     @Override
@@ -43,12 +50,15 @@ public class Kayttoliittyma implements Runnable{
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.add(piirtoalusta);
         
-        JButton sekoitaNappi = new JButton("Sekoita");
+        JButton sekoitaNappi = new JButton("SHUFFLE");
         sekoitaNappi.addActionListener(sKuuntelija);
-        JButton ratkaiseNappi = new JButton("Ratkaise");
+        JButton ratkaiseNappi = new JButton("SOLVE");
         ratkaiseNappi.addActionListener(rKuuntelija);
         
-        piirtoalusta.addMouseListener(new HiirenKuuntelija());
+        piirtoalusta.addMouseListener(hKuuntelija);
+        
+        frame.addKeyListener(nKuuntelija);
+        
         
         container.add(sekoitaNappi);
         container.add(ratkaiseNappi);

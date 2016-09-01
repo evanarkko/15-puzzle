@@ -1,4 +1,4 @@
-package main15;
+package Pelilogiikka;
 
 import kayttoliittyma.Piirtoalusta;
 import pelilauta.Lauta;
@@ -12,6 +12,7 @@ import ratkaisija.Ratkaisija;
 public class Peli {
 
     private Lauta lauta;
+    private LaatanSiirtaja laatanSiirtaja;
     private Piirtoalusta piirtoalusta;
     private Ratkaisija ratkaisija;
     private boolean ratkaisuMode;
@@ -21,6 +22,7 @@ public class Peli {
 
     public Peli(Lauta lauta, Piirtoalusta p) {
         this.lauta = lauta;
+        this.laatanSiirtaja = new LaatanSiirtaja(lauta);
         this.piirtoalusta = p;
         this.ratkaisija = new Ratkaisija(lauta);
         this.ratkaisuMode = false;
@@ -38,14 +40,22 @@ public class Peli {
             ratkaisija.seuraavaSiirto();
             piirtoalusta.incMoves();
             if (lauta.onkoJarjestyksessa()) {
+                piirtoalusta.setPeliRatkaistu(true);
                 lopetaRatkaiseminen();
             }
         } else if (sekoitusMode) {
+            piirtoalusta.setPeliRatkaistu(false);
             repaintTauko = 1;
             lauta.satunnainenSiirto();
             sekoituksia++;
             if (sekoituksia > 250) {
                 lopetaSekoittaminen();
+            }
+        } else if (laatanSiirtaja.isSiirto()){
+            laatanSiirtaja.siirto();
+            piirtoalusta.incMoves();
+            if (lauta.onkoJarjestyksessa()) {
+                piirtoalusta.setPeliRatkaistu(true);
             }
         }
     }
@@ -62,9 +72,6 @@ public class Peli {
             Thread.sleep(repaintTauko);
             etenePeli();
             piirtoalusta.repaint();
-            if (lauta.onkoJarjestyksessa()) {
-                piirtoalusta.setPelikaynnis(false);
-            }
         }
     }
 
@@ -89,5 +96,11 @@ public class Peli {
         sekoituksia = 0;
         sekoitusMode = false;
     }
+
+    public LaatanSiirtaja getLaatanSiirtaja() {
+        return laatanSiirtaja;
+    }
+    
+    
 
 }

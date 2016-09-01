@@ -3,6 +3,7 @@ package pelilauta;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import ratkaisija.Suunta;
 
 /**
  * Pääpeliluokka. Hallinnoi laatat, laudan täytön ja muutokset pelissä.
@@ -148,6 +149,31 @@ public class Lauta {
             }
             aloitusy += koko;
             aloitusx = marg;
+        }
+    }
+    
+    /**
+     * suorittaa yhden siirron saamiense parametrien perusteella.
+     * Metodi saa koordinaatti-olion ja suunnan ja kutsuu näiden 
+     * perusteella sopivaa laattaa siirtävää metodia
+     * 
+     * @param lahto Siirrettavan palikan koordinaatti (lähtökoordinaatti)
+     * @param s Siirtosuunta
+     */
+    public void siirra(Koordinaatit lahto, Suunta s){
+        switch(s){
+            case ALAS:
+                siirraAlas(lahto.x(), lahto.y());
+                break;
+            case YLOS:
+                siirraYlos(lahto.x(), lahto.y());
+                break;
+            case VASEN:
+                siirraVasemmalle(lahto.x(), lahto.y());
+                break;
+            case OIKEA:
+                siirraOikealle(lahto.x(), lahto.y());
+                break;
         }
     }
     
