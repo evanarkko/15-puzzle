@@ -21,7 +21,7 @@ laillinen, ja myönteisessä tapauksessa siirtää palikkaa kyseiseen suuntaan.
 Teen peliin kuitenkin pelaajalle GUI:n joka toimii "click and drag"-periaatteella.
 
 Aikavaativuustavoitteeni joudun asettamaan aika korkealle näin aluksi ainakin.
-Ratakisualgoritmini tulisi toimia O(n²)-vauhdilla. Voi olla, että tämäkin jää
+Ratkaisualgoritmini tulisi toimia O(n²)-vauhdilla. Voi olla, että tämäkin jää
 haaveeksi ja että aikavaativuudesta tuleekin eksponentiaalinen. Satunnaisen
 järjestyksen generointi sekä järjestyksen tarkistus saadaan mukavasti O(n)
 vauhtiin.
@@ -31,3 +31,6 @@ Muistissa on ainoastaan pidettävä laattojen järjestys. Muu on turhaa.
 
 Lähteet: HY:n Tietorakenteet ja Algoritmit -kurssin luentomateriaali
 syksy 2015 (Luennoitsija Patrik Floreen) 
+
+
+T
