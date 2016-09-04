@@ -2,7 +2,6 @@ package pelilauta;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import ratkaisija.Suunta;
 
 /**
@@ -15,15 +14,10 @@ public class Lauta {
     private int marg = 120;
     private int koko = 60;
     private Koordinaatit nullSpace;
-    private ArrayList<Integer> arvoArray; //Randomia generoimista varten
     
     public Lauta(int size) {
         lauta = new Laatta[size][size];
         laattoja = size * size - 1;
-        arvoArray = new ArrayList<>();
-        for(int i = 1; i <= laattoja; i++){
-            arvoArray.add(i);
-        }
         marg = 50;
         koko = 60;
         nullSpace = new Koordinaatit(size - 1, size - 1);

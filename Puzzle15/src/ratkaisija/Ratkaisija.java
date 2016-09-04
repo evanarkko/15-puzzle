@@ -1,7 +1,7 @@
 package ratkaisija;
 
+import TietoRakenteeni.ArrayListini;
 import com.sun.org.apache.bcel.internal.generic.IFEQ;
-import java.util.ArrayList;
 import pelilauta.*;
 import ratkaisija.*;
 
@@ -13,7 +13,7 @@ import ratkaisija.*;
 public class Ratkaisija {
 
     private final Lauta lauta;
-    private ArrayList<Integer> alaKoske;//AVUKSI JOTTA PAKKA EI SEKOITU (?)
+    private ArrayListini<Integer> alaKoske;//AVUKSI JOTTA PAKKA EI SEKOITU (?)
     private boolean nullinKierto; // FALSE JOS TOIMITAAN NORMISTI, TRUE, JOS MUUTOS 
     private Suunta nullinKiertoSuunta;//VASEN (myötäp.) tai OIKEA (vastap.)
     private boolean muodostelma;//Kertoo pitääkö tehdä erikoiskikkailut
@@ -25,7 +25,7 @@ public class Ratkaisija {
 
     public Ratkaisija(Lauta lauta) {
         this.lauta = lauta;
-        this.alaKoske = new ArrayList<>();
+        this.alaKoske = new ArrayListini<>();
         
         this.nullinKierto = false;
         this.nullinKiertoSuunta = Suunta.VASEN;
@@ -36,7 +36,7 @@ public class Ratkaisija {
     }
     
     public void initialize(){
-        this.alaKoske = new ArrayList<>();
+        this.alaKoske = new ArrayListini<>();
         this.nullinKierto = false;
         this.nullinKiertoSuunta = Suunta.VASEN;
         this.muodostelma = false;

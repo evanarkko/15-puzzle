@@ -44,6 +44,7 @@ public class Kayttoliittyma implements Runnable{
         luoKomponentit(frame.getContentPane());
         frame.pack();
         frame.setVisible(true);
+        frame.addKeyListener(nKuuntelija);
     }
     
     private void luoKomponentit(Container container){
@@ -55,9 +56,9 @@ public class Kayttoliittyma implements Runnable{
         JButton ratkaiseNappi = new JButton("SOLVE");
         ratkaiseNappi.addActionListener(rKuuntelija);
         
-        piirtoalusta.addMouseListener(hKuuntelija);
+//        piirtoalusta.addMouseListener(hKuuntelija);
         
-        frame.addKeyListener(nKuuntelija);
+//        piirtoalusta.addKeyListener(nKuuntelija);
         
         
         container.add(sekoitaNappi);
