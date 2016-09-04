@@ -68,3 +68,12 @@ Optimoimalla ratkaisualgoritmia arvelen, että keskimääräistä siirtomäärä
 30:llä siirrolla eli saada keskiarvo noin 100 siirtoon. Tässä ei muuttuisi aikavaativuus, vaan
 nopeutuminen perustuisi parempaan ratkaisulogiikkaan. Pystyn itse ratkaisemaan pelin aina
 noin 80:llä siirrolla.
+
+
+Testaus:
+
+Ohjelman peruslogiikka on testattu JUnitilla kattavasti. Ratkaisija luokan testaaminen
+ei ole yhtä triviaalia. Ratkaisija luokan konkreettisimat metodit ovat testattu JUnitilla,
+mutta koska ratkaisija-olion seuraava siirto riippuu aina senhetkiosestä uniikista
+pelitilanteesta, on ratkaisualgoa testattu vain käsin: suorittamalla ratkaisu useaan 
+kertaan ja tulkitsemalla lopputulosta.
