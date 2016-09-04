@@ -10,7 +10,6 @@ import ratkaisija.Ratkaisija;
  * @author eamiller
  */
 public class Peli {
-
     private Lauta lauta;
     private LaatanSiirtaja laatanSiirtaja;
     private Piirtoalusta piirtoalusta;
@@ -100,6 +99,7 @@ public class Peli {
     public LaatanSiirtaja getLaatanSiirtaja() {
         return laatanSiirtaja;
     }
+    
     
     
 

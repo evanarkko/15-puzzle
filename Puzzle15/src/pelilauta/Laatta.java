@@ -69,7 +69,9 @@ public class Laatta {
     }
     
     /**
-     * Siirtää laatta-oliota vasemmalle sekä piirtoalustalla, että peliludalla
+     * Siirtää laatta-oliota vasemmalle sekä piirtoalustalla, että peliludalla.
+     * Tapahtuu ainoastaan sisäisesti. Ei muuta pelitilannetta ohjelman 
+     * näkökulmasta. Muuttaa vain paikkaa, johon laatta tästä lähin piirretään.
      */
     public void siirraVasemmalle(){
         this.pelikoordinaatit.decx();
@@ -77,7 +79,9 @@ public class Laatta {
     }
     
     /**
-     * Siirtää laatta-oliota alas sekä piirtoalustalla, että peliludalla
+     * Siirtää laatta-oliota vasemmalle sekä piirtoalustalla, että peliludalla.
+     * Tapahtuu ainoastaan sisäisesti. Ei muuta pelitilannetta ohjelman 
+     * näkökulmasta. Muuttaa vain paikkaa, johon laatta tästä lähin piirretään.
      */
     public void siirraAlas(){
         this.pelikoordinaatit.incy();
@@ -85,7 +89,9 @@ public class Laatta {
     }
     
     /**
-     * Siirtää laatta-oliota ylös sekä piirtoalustalla, että peliludalla
+     * Siirtää laatta-oliota vasemmalle sekä piirtoalustalla, että peliludalla.
+     * Tapahtuu ainoastaan sisäisesti. Ei muuta pelitilannetta ohjelman 
+     * näkökulmasta. Muuttaa vain paikkaa, johon laatta tästä lähin piirretään.
      */
     public void siirraYlos(){
         this.pelikoordinaatit.decy();

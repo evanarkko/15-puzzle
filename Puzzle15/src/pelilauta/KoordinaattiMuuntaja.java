@@ -17,6 +17,13 @@ public class KoordinaattiMuuntaja {
         this.laudanMarginaali = 50;
     }
     
+    /**
+     * Muuttaa laudan pelikoordinaatit piirtoalustan todellisiksi koordinaateiksi.
+     * Metodi ei ole tällä hetkellä käytössä mutta implementoitu nyt kuitenkin lähinnä
+     * varmuuden ja tasapainon vuoksi
+     * @param k
+     * @return todelliset koordinaatit
+     */
     public Koordinaatit gameToTrue(Koordinaatit k){
         int x = k.x();
         int y = k.y();
@@ -30,10 +37,12 @@ public class KoordinaattiMuuntaja {
     
     
     /**
+     * Muuttaa piirtoalusta (JPanel) todelliset koordinaatit peliruudukon
+     * koordinaateiksi. Tärkeä apumetodi hiirenkuuntelija kannalta.
      * Olettaa, että pelilaudan marg-arvo (marginaali) on 50
-     * ja koko (laattojen koot) 60
-     * @param k
-     * @return 
+     * ja koko (laattojen koot) 60 (Kys. metodin testit olettavat näin myös)
+     * @param k todelliset koordinaatit
+     * @return pelikoordinaatit
      */
     public Koordinaatit trueToGame(Koordinaatit k){
         int x = k.x();

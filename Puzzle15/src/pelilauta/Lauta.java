@@ -25,19 +25,29 @@ public class Lauta {
     
     /**
      * Luo ja lisää laatat laudalle satunnaiseen arvojärjestykseen.
+     * Ensin lisää laatat järjestykseen ja sitten sekoittaa laudan 
+     * sekoitaLaatat()-metodilla.
      */
     public void lisaaLaatatSekoitettuna() {
         this.lisaaLaatatJarjestykseen();
         this.sekoitaLaatat();
         //sekoita
-    }
+    }   
     
-    public void sekoitaLaatat(){//priva?
-        for(int i = 0; i < 200; i++){
+    /**
+     * Sekoittaa laatat suorittamalla 250 satunnaista siirtoa.
+     */
+    public void sekoitaLaatat(){
+        for(int i = 0; i < 250; i++){
             this.satunnainenSiirto();
         }
     }
     
+    /**
+     * Arpoo satunnaisen siirron numeroilla 0-3, jossa jokainen numero esittää
+     * omaa ilmansuuntaansa. Tarkistetaan, onko arvottu siirto laillinen. Jos ei
+     * ole, arvotaan uudestaan.
+     */
     public void satunnainenSiirto(){
         int n;
         boolean uudestaan = true;
@@ -72,6 +82,12 @@ public class Lauta {
         }
     }
     
+    /**
+     * Ottaa syötteenä yksiuloitteisen kokonaislukulistan, ja lisää arvot
+     * pelilaudalle laattoina siinä järjestyksessä. Tärkeä apumetodi ratkaisija
+     * luokkaa kehittäessä, kun tahtoo päättää järjestyksen. Ei enää käytössä.
+     * @param arvot 
+     */
     public void lisaaLaatat(int[] arvot){
         int aloitusx = marg;
         int aloitusy = marg;
@@ -240,7 +256,7 @@ public class Lauta {
     }
     
     /**
-     * Palauttaa laatta-ruudukon jäsenent yksiuloitteisena listana.
+     * Palauttaa laatta-ruudukon jäsenet yksiuloitteisena listana.
      * ISO apu järjestyksen tarkistamisessa.
      * @return Laatta[] lista kaikista laatoista tämänhetkisessä järjestyksessä.
      */
@@ -313,6 +329,7 @@ public class Lauta {
     
     /**
      * Palauttaa pelilaudan koordinaatit halutulle laatalle. 
+     * Tosi tärkeä Ratkaisija-luokan toiminnalle.
      * @param arvo kyseessä olevan laatan arvo
      * @return 
      */
@@ -332,6 +349,13 @@ public class Lauta {
         return etsittavaLaatta.getPelikoordinaatit();
     }
     
+    /**
+     * Palauttaa laatan arvon syötteenä annetuissa koordinaateissa.
+     * Jos koordinaattien näyttämä paikka on tyhjä, palauttaa nolla.
+     * @param x laatan x-koordinaatti
+     * @param y laatan y-koordinaatti
+     * @return laatan arvo
+     */
     public int laatanArvo(int x, int y){
         if(lauta[y][x] == null)return 0;
         return lauta[y][x].getArvo();

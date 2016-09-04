@@ -35,6 +35,9 @@ public class Ratkaisija {
         this.loppusilaus = false;
     }
     
+    /**
+     * Alustaa ratkaisija olion valmiiksi ratkaisemaan pelin uudestaan.
+     */
     public void initialize(){
         this.alaKoske = new ArrayListini<>();
         this.nullinKierto = false;
@@ -186,6 +189,10 @@ public class Ratkaisija {
             }
     }
     
+    /**
+     * Kutsutaan vain jos rivit 1 ja 2 ovat järjestyksessä. Järjestää laatat
+     * 9,10,13 ja 14 omille paikoilleen siirto kerrallaan.
+     */
     private void loputRiveista(){
         if(muodostelma2){//9,13 paikoillaan 10,14 setup paikoilla
             if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(14), new Koordinaatit(1,3))){
@@ -207,7 +214,7 @@ public class Ratkaisija {
                                 index++;
                             }
                             alaKoske.remove(index);
-                            //EHKÄ POISTA VIELÄ 10 ÄLÄKOSKE -LISTALTA
+                            //POISTETAAN VIELÄ 10 ÄLÄKOSKE -LISTALTA, KOSKA SE EI OLE PAIKOILLAAN
                         }
                     }else{
                         if(siirraKohtiPaikkaa(lauta.laatanKoordinaatit(14), new Koordinaatit(1,2))){
@@ -240,6 +247,11 @@ public class Ratkaisija {
         }
     }
     
+    
+    /**
+     * Kutsutaan kun kaikki laatat ovat paikoillaan paitsi 11, 12 ja 15.
+     * Pyörittelee ne paikoilleen.
+     */
     private void loppuPyorittely(){
         if(lauta.getNullSpace().equals(new Koordinaatit(2, 2))){
             siirraNullSpacea(Suunta.OIKEA);
@@ -562,7 +574,7 @@ public class Ratkaisija {
                     break;
             }
         } catch (Exception e) {
-            System.out.println("Nullpointer nullSpacea siirtäessä");
+            System.out.println("Nullpointer nullSpacea siirtäessä" +  e);
         }
     }
 

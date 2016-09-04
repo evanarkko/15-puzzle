@@ -56,7 +56,7 @@ public class Kayttoliittyma implements Runnable{
         JButton ratkaiseNappi = new JButton("SOLVE");
         ratkaiseNappi.addActionListener(rKuuntelija);
         
-//        piirtoalusta.addMouseListener(hKuuntelija);
+        piirtoalusta.addMouseListener(hKuuntelija);
         
 //        piirtoalusta.addKeyListener(nKuuntelija);
         

@@ -19,6 +19,8 @@ import pelilauta.Lauta;
  * @author eamiller
  */
 public class RatkaisijaTest {
+    Lauta l;
+    Ratkaisija ratkaisija;
     
     public RatkaisijaTest() {
     }
@@ -33,8 +35,9 @@ public class RatkaisijaTest {
     
     @Before
     public void setUp() {
-        Lauta l = new Lauta(4);
-        Ratkaisija ratkaisija = new Ratkaisija(l);
+        l = new Lauta(4);
+        l.lisaaLaatatSekoitettuna();
+        ratkaisija = new Ratkaisija(l);
     }
     
     @After
@@ -42,53 +45,17 @@ public class RatkaisijaTest {
     }
 
     /**
-     * Test of seuraavaSiirto method, of class Ratkaisija.
-     */
-    @Test
-    public void testSeuraavaSiirto() {
-        System.out.println("seuraavaSiirto");
-        Ratkaisija instance = null;
-        instance.seuraavaSiirto();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of siirraKohtiPaikkaa method, of class Ratkaisija.
-     */
-    @Test
-    public void testSiirraKohtiPaikkaa() {
-        System.out.println("siirraKohtiPaikkaa");
-        Koordinaatit siirrettava = null;
-        Koordinaatit kohde = null;
-        Ratkaisija instance = null;
-        boolean expResult = false;
-        boolean result = instance.siirraKohtiPaikkaa(siirrettava, kohde);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of siirraNullSpacea method, of class Ratkaisija.
-     */
-    @Test
-    public void testSiirraNullSpacea_Koordinaatit_Suunta() {
-        System.out.println("siirraNullSpacea");
-        Koordinaatit vaista = null;
-        Suunta s = null;
-        Ratkaisija instance = null;
-        instance.siirraNullSpacea(vaista, s);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of siirraNullSpacea method, of class Ratkaisija.
      */
     @Test
     public void testSiirraNullSpacea_Suunta_Alas() {
-        System.out.println("siirraNullSpaceaAlas");
+        int y = l.getNullSpace().y();
+        ratkaisija.siirraNullSpacea(Suunta.ALAS);
+        boolean toimii = false;
+        if(y == 3 && y == l.getNullSpace().y()) toimii = true;
+        if(y == l.getNullSpace().y()-1) toimii = true;
+        assertTrue(toimii);
+        
         
     }
     
@@ -97,8 +64,13 @@ public class RatkaisijaTest {
      */
     @Test
     public void testSiirraNullSpacea_Suunta_Ylos() {
-        System.out.println("siirraNullSpacea");
-        
+        Koordinaatit alkuNull = new Koordinaatit(l.getNullSpace().x(), l.getNullSpace().y());
+        ratkaisija.siirraNullSpacea(Suunta.YLOS);
+        boolean toimii = true;
+        if(alkuNull.equals(l.getNullSpace())){
+            if(alkuNull.y()!=0)toimii = false;
+        }
+        assertTrue(toimii);
     }
     
     /**
@@ -106,7 +78,13 @@ public class RatkaisijaTest {
      */
     @Test
     public void testSiirraNullSpacea_Suunta_Vasen() {
-        System.out.println("siirraNullSpacea");
+        Koordinaatit alkuNull = new Koordinaatit(l.getNullSpace().x(), l.getNullSpace().y());
+        ratkaisija.siirraNullSpacea(Suunta.VASEN);
+        boolean toimii = true;
+        if(alkuNull.equals(l.getNullSpace())){
+            if(alkuNull.x()!=0)toimii = false;
+        }
+        assertTrue(toimii);
         
     }
     
@@ -115,7 +93,13 @@ public class RatkaisijaTest {
      */
     @Test
     public void testSiirraNullSpacea_Suunta_Oikea() {
-        System.out.println("siirraNullSpacea");
+        Koordinaatit alkuNull = new Koordinaatit(l.getNullSpace().x(), l.getNullSpace().y());
+        ratkaisija.siirraNullSpacea(Suunta.OIKEA);
+        boolean toimii = true;
+        if(alkuNull.equals(l.getNullSpace())){
+            if(alkuNull.x()!=3)toimii = false;
+        }
+        assertTrue(toimii);
         
     }
     

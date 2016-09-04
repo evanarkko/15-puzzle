@@ -13,17 +13,19 @@ import Pelilogiikka.Peli;
  *
  * @author eamiller
  */
-public class RatkaisijaKuuntelija implements ActionListener{
+public class SekoittajaNapinKuuntelija implements ActionListener{
     private Peli p;
 
-    public RatkaisijaKuuntelija(Peli p) {
+    public SekoittajaNapinKuuntelija(Peli p) {
         this.p = p;
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        p.lopetaSekoittaminen();
-        p.setRatkaisuMode(true);
+        System.out.println("sekokuuntelija toimii");
+        p.lopetaRatkaiseminen();
+        p.setSekoitusMode(true);
+        p.resetMoves();
     }
     
 }

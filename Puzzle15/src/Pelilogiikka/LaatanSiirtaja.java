@@ -11,6 +11,7 @@ import ratkaisija.Suunta;
 
 /**
  * Apuluokka, joka siirtelee pelaajan haluamia laattoja.
+ * Ratkaisija-luokka ei käytä tämän luokan ilmentymää.
  * Ottaa koordinaatteja vastaan, ja suorittaa laattojen siirrot
  * pelilaudalla.
  * 
@@ -27,6 +28,11 @@ public class LaatanSiirtaja {
         siirto = false;
     }
     
+    /**
+     * Ainoastaan näppäinkuuntelijalle. Ei toimi vielä enkä tiedä miksi.
+     * Korjaan, jos jaksan. Jos luet tätä tekstiä, en jaksanut...
+     * @param s 
+     */
     public void lisaaSiirto(Suunta s){//näppäimille
         switch (s){
             case ALAS:
@@ -50,6 +56,11 @@ public class LaatanSiirtaja {
         siirto = true;
     }
     
+    /**
+     * Lisää tiedon siirrettävän laatan lähtökoordinaateista.
+     * Kutsutaan hiirenkuuntelijalla.
+     * @param lahto 
+     */
     public void lisaaLahto(Koordinaatit lahto){
         if(lauta.getNullSpace().equals(lahto)){
             System.out.println("Et voi siirtää tyhjää tilaa"); 
@@ -57,6 +68,12 @@ public class LaatanSiirtaja {
         this.lahtoKoordinaatit = lahto;
     }
     
+    /**
+     * Lisää tiedon tämänhetkisen siirron suunnasta. Tarkistaa, onko
+     * kys. suunnassa tyhjä tila. Tämän jälkeen kaikki tarvittava tieto siirrosta
+     * on saatu ja seuraavaksi voidaankin siirtää. (siirto-boolean trueksi)
+     * @param kohde Koordinaatit, jonka avulla päätellään siirtosuunta
+     */
     public void lisaaSuunta(Koordinaatit kohde){
         if(!lauta.getNullSpace().equals(kohde)){
             System.out.println("Kohdepaikka ei ole tyhjä tila");
@@ -82,11 +99,18 @@ public class LaatanSiirtaja {
         }
     }
     
+    /**
+     * Suorittaa halutun siirron ja alustaa kaikki tiedot tyhjiksi ja siirto-boolean
+     * falseksi.
+     */
     public void siirto(){
         lauta.siirra(lahtoKoordinaatit, suunta);
         initialize();
     }
     
+    /**
+     * Alustaa olion uudelleenkäytettävään tilaan.
+     */
     private void initialize(){
         this.lahtoKoordinaatit = null;
         this.suunta = null;

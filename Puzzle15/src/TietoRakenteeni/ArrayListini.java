@@ -33,6 +33,11 @@ public class ArrayListini<T extends Object> implements List<T> {
         return koko == 0;
     }
 
+    /**
+     * Tarkistaa, sisäältääkö lista syötteenä annetun olion.
+     * @param o olio
+     * @return 
+     */
     @Override
     public boolean contains(Object o) {
         for (int indx = 0; indx < koko; indx++) {
@@ -43,6 +48,10 @@ public class ArrayListini<T extends Object> implements List<T> {
         return false;
     }
 
+    /**
+     * perus iteraatio-operaatiot
+     * @return 
+     */
     @Override
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<T>() {
@@ -76,6 +85,11 @@ public class ArrayListini<T extends Object> implements List<T> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Lisää taulukkoon (eli listaan) yhden olion
+     * @param e lisättävä olio
+     * @return 
+     */
     @Override
     public boolean add(T e) {
         varmistaTilavuus();
@@ -84,6 +98,12 @@ public class ArrayListini<T extends Object> implements List<T> {
         return true;
     }
     
+    
+    /**
+     * add-funktioon kuuluva apufunktio, joka varmistaa, että listaan voidaan
+     * lisätä olio nykyisellä taulukolla. Jos ei, kaksinkertaistetaan taulukon
+     * koko ja täytetään vanha taulukko uuden taulukon sisällöllä.
+     */
     private void varmistaTilavuus(){
         if(koko == tilavuus){
             tilavuus*=2;
@@ -97,6 +117,13 @@ public class ArrayListini<T extends Object> implements List<T> {
         }
     }
 
+    
+    /**
+     * Poistaa ja palauttaa listalta olion equals-metodin avulla. 
+     * Ei käytössä ohjelmassani. Implementoitu silti.
+     * @param o poistettava olio
+     * @return 
+     */
     @Override
     public boolean remove(Object o) {
     for (int i = 0; i < koko; i++) {
@@ -157,11 +184,16 @@ public class ArrayListini<T extends Object> implements List<T> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Poistaa ja palauttaa olion listalta annetulta indeksiltä.
+     * @param index poistettava indeksi
+     * @return 
+     */
     @Override
     public T remove(int index) {
         T poistettu = taulukko[index];
         
-        for (int i = index; i < koko - 1; i++) {
+        for (int i = index; i < koko - 1; i++) {//siirtää oliot taaksepäin s.e. voidaan poistaa vika.
             taulukko[i] = taulukko[i + 1];
         }
 

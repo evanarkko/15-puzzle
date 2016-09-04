@@ -82,7 +82,14 @@ public class Koordinaatit {
     public void decy(int maara){
         y-=maara;
     }
-    
+   
+    /**
+     * Katsoo, onko tämä olio syötteenä annetun olin välittömässä läheisyydessä.
+     * Esim (1,0) ja (2, 0) ovat vierekkäin. Tärkeä metodi Ratkaisija-luokan 
+     * kannalta
+     * @param k
+     * @return 
+     */
     public boolean onkoVieressa(Koordinaatit k){
         if(this.equals(new Koordinaatit(k.x()-1, k.y()))) return true;
         if(this.equals(new Koordinaatit(k.x()+1, k.y()))) return true;
@@ -91,6 +98,13 @@ public class Koordinaatit {
         return false;
     }
     
+    /**
+     * Katsoo, onko tämä olio viistossa syötteestä annetusta oliosta.
+     * Esim (1,0) ja (2, 1) ovat viistossa eli niiden laattojen kulmat ovat
+     * kosketuksissa. Myös hyvin tärkeä metodi Ratkaisija-luokan kannalta.
+     * @param k
+     * @return 
+     */
     public boolean onkoViistossa(Koordinaatit k){
         if(this.x == k.x()-1 && this.y == k.y()-1) return true; 
         if(this.x == k.x()+1 && this.y == k.y()-1) return true; 
@@ -98,7 +112,6 @@ public class Koordinaatit {
         if(this.x == k.x()+1 && this.y == k.y()+1) return true; 
         return false;
     }
-
     @Override
     public boolean equals(Object obj) {
         Koordinaatit k = (Koordinaatit) obj;

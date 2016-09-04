@@ -12,7 +12,7 @@ import pelilauta.Koordinaatit;
 import pelilauta.KoordinaattiMuuntaja;
 
 /**
- *
+ * Kuuntelee hiiren käskyt pelissä
  * @author eamiller
  */
 public class HiirenKuuntelija implements MouseListener{
@@ -31,15 +31,11 @@ public class HiirenKuuntelija implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("pressed: ");
-        System.out.println(km.trueToGame(new Koordinaatit(e.getX(), e.getY())));
         ls.lisaaLahto(km.trueToGame(new Koordinaatit(e.getX(), e.getY())));
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("released: ");
-        System.out.println(km.trueToGame(new Koordinaatit(e.getX(), e.getY())));
         ls.lisaaSuunta(km.trueToGame(new Koordinaatit(e.getX(), e.getY())));
     }
 

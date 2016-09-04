@@ -6,8 +6,8 @@ import kuuntelijat.HiirenKuuntelija;
 import kayttoliittyma.Kayttoliittyma;
 import kayttoliittyma.Piirtoalusta;
 import kuuntelijat.NappaintenKuuntelija;
-import kuuntelijat.RatkaisijaKuuntelija;
-import kuuntelijat.SekoittajaKuuntelija;
+import kuuntelijat.RatkaisijaNapinKuuntelija;
+import kuuntelijat.SekoittajaNapinKuuntelija;
 import pelilauta.Koordinaatit;
 import pelilauta.Laatta;
 import pelilauta.Lauta;
@@ -39,8 +39,8 @@ public class Main {
         
         NappaintenKuuntelija nk = new NappaintenKuuntelija(peli.getLaatanSiirtaja());
         HiirenKuuntelija hk = new HiirenKuuntelija(peli.getLaatanSiirtaja());
-        SekoittajaKuuntelija sk = new SekoittajaKuuntelija(peli);
-        RatkaisijaKuuntelija rk = new RatkaisijaKuuntelija(peli);
+        SekoittajaNapinKuuntelija sk = new SekoittajaNapinKuuntelija(peli);
+        RatkaisijaNapinKuuntelija rk = new RatkaisijaNapinKuuntelija(peli);
         Kayttoliittyma k = new Kayttoliittyma(p, rk, sk, hk, nk);
         k.run();
 

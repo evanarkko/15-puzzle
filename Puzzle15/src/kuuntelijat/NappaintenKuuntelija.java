@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
 import ratkaisija.Suunta;
 
 /**
- *
+ * Ei tee mitään vielä
  * @author eamiller
  */
 public class NappaintenKuuntelija implements KeyListener{
